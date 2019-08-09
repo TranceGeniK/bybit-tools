@@ -1,0 +1,31 @@
+<v-navigation-drawer
+    :value="value"
+    @input="$emit('input', $event)"
+    app
+    clipped
+>
+  <v-form>
+    <v-container>
+      <v-layout wrap>
+        <v-text-field
+            v-model="$bybitApi.apiKey"
+            label="API Key"
+            required
+        ></v-text-field>
+        <v-text-field
+            v-model="$bybitApi.apiSecret"
+            label="Private Key"
+            required
+        ></v-text-field>
+        <v-btn
+            color="darkgrey"
+            class="mr-4"
+            @click="$bybitApi.init"
+        >
+          Init
+        </v-btn>
+      </v-layout>
+    </v-container>
+  </v-form>
+</v-navigation-drawer>
+

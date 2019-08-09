@@ -1,28 +1,37 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <Drawer v-model="drawer"></Drawer>
+    <HeaderComp @toggleDrawer="drawer = !drawer"></HeaderComp>
+    <Home></Home>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  import Drawer from './components/Drawer';
+  import HeaderComp from './components/HeaderComp';
+  import Home from './components/Home';
+  
+  export default {
+    name: 'App',
+    components: {
+      Home, HeaderComp, Drawer,
+    },
+    created() {
+      this.$vuetify.theme.dark = true;
+      this.$vuetify.theme.themes.dark.primary = '#eba51d'
+    },
+    data: () => ({
+      drawer: null,
+    }),
+  };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  html {
+    overflow-y: auto !important;
+  }
+  
+  .logo {
+    display: inline;
+  }
 </style>

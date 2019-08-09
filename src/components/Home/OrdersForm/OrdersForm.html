@@ -1,0 +1,92 @@
+<v-layout column align-center>
+  <v-form
+      ref="form"
+      v-model="valid"
+      :lazy-validation="false"
+      autocomplete="off"
+  >
+    <v-text-field
+        v-model="form.startPrice"
+        :rules="form.startPriceRules"
+        label="Start Price"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="form.endPrice"
+        :rules="form.endPriceRules"
+        label="End Price"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="form.contracts"
+        :rules="form.contractsRules"
+        label="Number of contracts"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="form.orders"
+        :rules="form.ordersRules"
+        label="Number of orders"
+        required
+    ></v-text-field>
+    <v-select
+        v-model="form.scale"
+        :items="form.items"
+        :rules="[v => !!v || 'Scale is required']"
+        label="Scale"
+        required
+    ></v-select>
+    
+    <v-layout wrap align-center column>
+      
+      <v-layout  align-center justify-space-between mb-4>
+        <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="previewBuy"
+        >
+          Preview buy entries
+        </v-btn>
+        <v-btn
+            color="darkgrey"
+            class="mr-4"
+            @click="reset"
+        >
+          Reset
+        </v-btn>
+  
+        <v-btn
+            :disabled="!valid"
+            color="error"
+            class="mr-4"
+            @click="previewSell"
+        >
+          Preview sell entries
+        </v-btn>
+      </v-layout>
+      
+      <preview-orders v-if="preview.length > 0" :orders="preview" @close="preview = []"></preview-orders>
+      
+      <v-layout align-center justify-space-between mt-2>
+        <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="buy"
+        >
+          Buy
+        </v-btn>
+        
+        <v-btn
+            :disabled="!valid"
+            color="error"
+            class="mr-4"
+            @click="sell"
+        >
+          Sell
+        </v-btn>
+      </v-layout>
+    </v-layout>
+  </v-form>
+</v-layout>

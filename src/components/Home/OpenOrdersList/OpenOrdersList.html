@@ -1,0 +1,28 @@
+<section class="open-orders-list">
+  <v-layout align-center justify-space-between row ml-2 mr-2 mb-2>
+    <span class="font-weight-light">Open Orders</span>
+    <v-btn small
+        color="error"
+        @click="$bybitApi.cancelAllOpenOrders()"
+    >
+      Cancel All
+    </v-btn>
+  </v-layout>
+  
+  <v-data-table
+      :headers="headers"
+      :items="$bybitApi.openOrders"
+      :items-per-page="10"
+  >
+    <template v-slot:item.cancel="{ item }">
+      <v-btn small
+          color="error"
+          class="mr-4"
+          @click="$bybitApi.cancelOrder(item.order_id)"
+      >
+        Cancel
+      </v-btn>
+    </template>
+  </v-data-table>
+</section>
+
