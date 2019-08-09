@@ -1,29 +1,7 @@
-# bybit-ladder-orders
+# bybit-tools
 
-## Project setup
-```
-npm install
-```
+Little tool to place and cancel laddered orders on bybit
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+BTC Tip line : 1C24gX5aCBn4qdoUVKkmkj9dWGmKeMzV8L
+ETH Tip line : 0x1d1fe0de85fe11fea34782cb2883b272fa10c57a
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

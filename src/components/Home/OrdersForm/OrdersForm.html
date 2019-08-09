@@ -39,7 +39,7 @@
     
     <v-layout wrap align-center column>
       
-      <v-layout  align-center justify-space-between mb-4>
+      <v-layout  align-center justify-space-between mb-2>
         <v-btn
             :disabled="!valid"
             color="success"
@@ -68,7 +68,7 @@
       
       <preview-orders v-if="preview.length > 0" :orders="preview" @close="preview = []"></preview-orders>
       
-      <v-layout align-center justify-space-between mt-2>
+      <v-layout align-center justify-space-between mt-1>
         <v-btn
             :disabled="!valid"
             color="success"

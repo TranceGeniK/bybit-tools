@@ -15,8 +15,11 @@ export default {
       },
       methods: {
         init() {
-          this.initWs();
-          this.getOrders();
+          if(this.$bybitApi.apiKey && this.$bybitApi.apiSecret)
+          {
+            this.initWs();
+            this.getOrders();
+          }
         },
         initWs() {
           let expires = Date.now() + 1000;

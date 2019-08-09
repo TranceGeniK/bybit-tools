@@ -21,7 +21,7 @@
       this.$vuetify.theme.themes.dark.primary = '#eba51d'
     },
     data: () => ({
-      drawer: null,
+      drawer: false,
     }),
   };
 </script>
