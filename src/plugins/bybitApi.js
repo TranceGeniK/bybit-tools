@@ -134,7 +134,16 @@ export default {
           }
         },
         addOrder(order) {
-          this.openOrders.push(order) ;
+          let exists = false ;
+          for(let i = 0; i < this.openOrders.length; i++) {
+            if(this.openOrders[i].order_id === order.order_id)
+            {
+              exists = true ;
+            }
+          }
+          if(!exists) {
+            this.openOrders.push(order) ;
+          }
         },
         removeOrder(order) {
           console.log(order, this.openOrders) ;
