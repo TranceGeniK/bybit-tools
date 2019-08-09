@@ -15,7 +15,7 @@ export default {
       },
       methods: {
         init() {
-          if(this.$bybitApi.apiKey && this.$bybitApi.apiSecret)
+          if(this.apiKey && this.apiSecret)
           {
             this.initWs();
             this.getOrders();
