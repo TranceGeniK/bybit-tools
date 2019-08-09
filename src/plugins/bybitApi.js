@@ -22,21 +22,24 @@ export default {
           }
         },
         initWs() {
-          let expires = Date.now() + 1000;
-          
-          let signature = CryptoJS.HmacSHA256('GET/realtime' + expires,
-              this.apiSecret).
-              toString();
-          
           this.ws = new WebSocket(`${this.wsUrl}`);
           
           this.ws.onopen = (e) => {
+            let expires = Date.now() + 1000;
+  
+            let signature = CryptoJS.HmacSHA256('GET/realtime' + expires,
+                this.apiSecret).
+                toString();
+            
             this.ws.send(
                 JSON.stringify({
                   'op': 'auth',
                   'args': [this.apiKey, expires, signature],
                 }));
-            this.ws.send('{"op":"subscribe","args":["order"]}');
+            
+            setTimeout(() => {
+              this.ws.send('{"op":"subscribe","args":["order"]}');
+            }, 500) ;
             this.ws.send(
                 '{"op":"subscribe","args":["instrument_info.100ms.BTCUSD"]}');
           };
