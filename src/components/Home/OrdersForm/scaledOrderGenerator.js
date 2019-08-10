@@ -1,5 +1,7 @@
 // Inspired by bitfinex. please don't sue me
 
+// Thanks to https://github.com/nice-table for the algo :)
+
 import _ from 'lodash';
 import {ORDER_DISTRIBUTIONS} from './constants';
 import {Decimal} from 'decimal.js';
