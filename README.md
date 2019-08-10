@@ -1,6 +1,15 @@
 # bybit-tools
 
-Little tool to place and cancel laddered orders on bybit
+Little tool to place and cancel scaled orders on bybit
+
+
+![Preview](./screenshots/main_screen.png)
+
+
+
+[Releases](https://github.com/TranceGeniK/bybit-tools/releases)
+
+
 
 BTC Tip line : 1C24gX5aCBn4qdoUVKkmkj9dWGmKeMzV8L
 
