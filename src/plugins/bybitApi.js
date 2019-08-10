@@ -53,11 +53,14 @@ export default {
               case 'order' :
                 for(let i = 0; i < data.data.length; i++)
                 {
-                  if(data.data[i].order_status === 'Cancelled')
+                  if(data.data[i].order_status === 'Cancelled'
+                      || data.data[i].order_status === 'Rejected'
+                      || data.data[i].order_status === 'Filled')
                   {
                     this.removeOrder(data.data[i]) ;
                   }
-                  if(data.data[i].order_status === 'New')
+                  if(data.data[i].order_status === 'New'
+                      || data.data[i].order_status === 'PartiallyFilled')
                   {
                     this.addOrder(data.data[i]) ;
                   }
