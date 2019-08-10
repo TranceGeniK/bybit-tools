@@ -33,11 +33,13 @@ export default {
         v => v >= 2 || 'Number of orders must be above 2',
       ],
       scale: 'Linear',
-      items: [
+      scaleItems: [
         'Linear',
-        // 'Exponential',
-        // 'Logarithmic',
+        // 'Increasing',
+        // 'Decreasing',
       ],
+      postOnly : false,
+      reduceOnly: false
     },
     preview: [],
     orders: [],
@@ -77,6 +79,7 @@ export default {
       }
     },
     calculateOrders(side) {
+      // contracts = q1 x startPrice + q1 x (startPrice + delta) + 2 x q1 x (startPrice + 3 x delta) + 2 x q1 x (startPrice + 5 x delta) + ... + n x q1 x lastPrice ;
       for (let i = 0; i < this.form.orders; i++) {
         this.orders.push({
           side: side,
@@ -85,7 +88,8 @@ export default {
           qty: Math.round(this.form.contracts / this.form.orders),
           price: Math.round(parseInt(this.form.startPrice) - i *
               (this.form.startPrice - this.form.endPrice) / (this.form.orders - 1)),
-          time_in_force: 'GoodTillCancel',
+          time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
+          reduce_only : this.form.reduceOnly
         });
       }
     },

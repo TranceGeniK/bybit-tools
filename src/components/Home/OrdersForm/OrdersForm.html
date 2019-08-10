@@ -31,18 +31,23 @@
     ></v-text-field>
     <v-select
         v-model="form.scale"
-        :items="form.items"
+        :items="form.scaleItems"
         :rules="[v => !!v || 'Scale is required']"
         label="Scale"
         required
     ></v-select>
+  
+    <v-layout wrap justify-space-around>
+      <v-switch v-model="form.postOnly" class="ma-4" color="primary" label="Post-only"></v-switch>
+      <v-switch v-model="form.reduceOnly" class="ma-4" color="primary" label="Reduce-only"></v-switch>
+    </v-layout>
     
     <v-layout wrap align-center column>
       
-      <v-layout  align-center justify-space-between mb-2>
+      <v-layout align-center justify-space-between mb-2>
         <v-btn
             :disabled="!valid"
-            color="success"
+            color="#78b63f"
             class="mr-4"
             @click="previewBuy"
         >
@@ -55,10 +60,10 @@
         >
           Reset
         </v-btn>
-  
+        
         <v-btn
             :disabled="!valid"
-            color="error"
+            color="#ba4967"
             class="mr-4"
             @click="previewSell"
         >
@@ -71,7 +76,7 @@
       <v-layout align-center justify-space-between mt-1>
         <v-btn
             :disabled="!valid"
-            color="success"
+            color="#78b63f"
             class="mr-4"
             @click="buy"
         >
@@ -80,7 +85,7 @@
         
         <v-btn
             :disabled="!valid"
-            color="error"
+            color="#ba4967"
             class="mr-4"
             @click="sell"
         >

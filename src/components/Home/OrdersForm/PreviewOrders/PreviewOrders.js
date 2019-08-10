@@ -11,6 +11,7 @@ export default {
         {text: 'Qty', value: 'qty'},
         {text: 'Price', value: 'price'},
         {text: 'Time In Force', value: 'time_in_force'},
+        {text: 'Reduce Only', value: 'reduce_only'},
       ]
     }
   },

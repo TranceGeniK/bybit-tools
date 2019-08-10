@@ -10,6 +10,9 @@
       :items="orders"
       :items-per-page="10"
   >
+    <template v-slot:item.reduce_only="{ item }">
+      {{item.reduce_only ? 'Yes' : 'No'}}
+    </template>
   </v-data-table>
 </section>
 
