@@ -87,9 +87,10 @@ export default {
         priceLower: parseInt(this.form.lowerPrice),
         priceUpper: parseInt(this.form.higherPrice),
         distribution: side === 'Sell' ? this.form.scale : (this.form.scale ===
-        ORDER_DISTRIBUTIONS.INCREASING.label
-            ? ORDER_DISTRIBUTIONS.DECREASING.label
-            : ORDER_DISTRIBUTIONS.INCREASING.label),
+        ORDER_DISTRIBUTIONS.FLAT.label ? ORDER_DISTRIBUTIONS.FLAT.label :
+            ORDER_DISTRIBUTIONS.INCREASING.label
+                ? ORDER_DISTRIBUTIONS.DECREASING.label
+                : ORDER_DISTRIBUTIONS.INCREASING.label),
         tickSize: 1,
       });
       if (side === 'Buy') {
