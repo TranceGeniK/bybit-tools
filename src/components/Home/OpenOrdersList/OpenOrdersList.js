@@ -9,7 +9,8 @@ export default {
         {text: 'Qty', value: 'qty'},
         {text: 'Price', value: 'price'},
         {text: 'Type', value: 'order_type'},
-        {text: 'Updated at', value: 'updated_at'},
+        {text: 'Time In Force', value: 'time_in_force'},
+        {text: 'Updated At', value: 'updated_at'},
         {text: 'Cancel', value: 'cancel'},
       ]
     };

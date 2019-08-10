@@ -135,10 +135,12 @@ export default {
         },
         addOrder(order) {
           let exists = false ;
+          order.updated_at = order.timestamp ;
           for(let i = 0; i < this.openOrders.length; i++) {
             if(this.openOrders[i].order_id === order.order_id)
             {
               exists = true ;
+              this.$set(this.openOrders, i, order) ;
             }
           }
           if(!exists) {
