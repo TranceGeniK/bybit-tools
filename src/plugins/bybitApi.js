@@ -115,8 +115,25 @@ export default {
             let res = await axios.post(this.url + 'order/create',
                 this.signData(data));
             console.log(res);
+            if(res.data.ret_msg === 'ok') {
+              this.$notify({
+                text: 'Order placed',
+                type: 'success'
+              });
+            }
+            else {
+              this.$notify({
+                text: res.data.ret_msg,
+                type: 'error'
+              });
+            }
+            
           } catch (e) {
             console.error(e);
+            this.$notify({
+              text: e,
+              type: 'error'
+            });
           }
         },
         async cancelOrder(id) {
@@ -126,6 +143,18 @@ export default {
             } ;
             let res = await axios.post(this.url + 'order/cancel',
                 this.signData(data));
+            if(res.data.ret_msg === 'ok') {
+              this.$notify({
+                text: 'Order cancelled',
+                type: 'success'
+              });
+            }
+            else {
+              this.$notify({
+                text: res.data.ret_msg,
+                type: 'error'
+              });
+            }
           } catch (e) {
             console.error(e);
           }

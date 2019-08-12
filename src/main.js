@@ -1,14 +1,18 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 import vuetify from './plugins/vuetify';
 
-import bybitApi from './plugins/bybitApi'
+import Notifications from 'vue-notification';
 
-Vue.use(bybitApi) ;
+Vue.use(Notifications);
 
-Vue.config.productionTip = false
+import bybitApi from './plugins/bybitApi';
+
+Vue.use(bybitApi);
+
+Vue.config.productionTip = false;
 
 new Vue({
   vuetify,
-  render: function (h) { return h(App) }
-}).$mount('#app')
+  render: function(h) { return h(App); },
+}).$mount('#app');

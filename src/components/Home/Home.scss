@@ -1,2 +1,22 @@
 .home {
+  .vue-notification {
+    padding: 10px;
+    margin: 5px;
+
+    font-size: 12px;
+
+    color: #ffffff;
+    background: #44A4FC;
+    border-left: 5px solid #187FE7;
+
+    &.error {
+      background: #ba4967;
+      border-left-color: #ba4967;
+    }
+
+    &.success {
+      background: #78b63f;
+      border-left-color: #78b63f;
+    }
+  }
 }

@@ -18,7 +18,9 @@
     },
     created() {
       this.$vuetify.theme.dark = true;
-      this.$vuetify.theme.themes.dark.primary = '#eba51d'
+      this.$vuetify.theme.themes.dark.primary = '#eba51d';
+      this.$vuetify.theme.themes.dark.success = '#78b63f';
+      this.$vuetify.theme.themes.dark.error = '#ba4967';
     },
     data: () => ({
       drawer: false,
