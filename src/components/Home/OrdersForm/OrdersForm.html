@@ -29,6 +29,16 @@
         label="Number of orders"
         required
     ></v-text-field>
+    <v-text-field
+        v-model="form.takeProfit"
+        :rules="form.takeProfitRules"
+        label="Take Profit"
+    ></v-text-field>
+    <v-text-field
+        v-model="form.stopLoss"
+        :rules="form.stopLossRules"
+        label="Stop Loss"
+    ></v-text-field>
     <v-select
         v-model="form.scale"
         :items="form.scaleItems"

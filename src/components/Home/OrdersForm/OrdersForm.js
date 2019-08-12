@@ -21,6 +21,16 @@ export default {
         v => !isNaN(v) || 'Lower Price must be an number',
         v => !Number.isInteger(v) || 'Lower Price must be an integer',
       ],
+      takeProfit: '',
+      takeProfitRules: [
+        v => !isNaN(v) || 'Take Profit must be an number',
+        v => !Number.isInteger(v) || 'Take Profit must be an integer',
+      ],
+      StopLoss: '',
+      StopLossRules: [
+        v => !isNaN(v) || 'Stop Loss must be an number',
+        v => !Number.isInteger(v) || 'Stop Loss must be an integer',
+      ],
       contracts: '',
       contractsRules: [
         v => !!v || 'Number of contracts is required',
@@ -88,14 +98,14 @@ export default {
         priceUpper: parseInt(this.form.higherPrice),
         distribution: side === 'Sell' ? this.form.scale : (this.form.scale ===
         ORDER_DISTRIBUTIONS.FLAT.label ? ORDER_DISTRIBUTIONS.FLAT.label :
-            ORDER_DISTRIBUTIONS.INCREASING.label
+            (this.form.scale === ORDER_DISTRIBUTIONS.INCREASING.label
                 ? ORDER_DISTRIBUTIONS.DECREASING.label
-                : ORDER_DISTRIBUTIONS.INCREASING.label),
+                : ORDER_DISTRIBUTIONS.INCREASING.label)),
         tickSize: 1,
       });
       if (side === 'Buy') {
         for (let i = orders.length - 1; i >= 0; i--) {
-          this.orders.push({
+          let order  = {
             side: side,
             symbol: 'BTCUSD',
             order_type: 'Limit',
@@ -103,11 +113,18 @@ export default {
             price: orders[i].price,
             time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
             reduce_only: this.form.reduceOnly,
-          });
+          } ;
+          if(this.form.takeProfit && i === orders.length - 1) {
+            order.take_profit = this.form.takeProfit ;
+          }
+          if(this.form.stopLoss  && i === orders.length - 1) {
+            order.stop_loss = this.form.stopLoss ;
+          }
+          this.orders.push(order);
         }
       } else {
         for (let i = 0; i < orders.length; i++) {
-          this.orders.push({
+          let order = {
             side: side,
             symbol: 'BTCUSD',
             order_type: 'Limit',
@@ -115,7 +132,14 @@ export default {
             price: orders[i].price,
             time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
             reduce_only: this.form.reduceOnly,
-          });
+          } ;
+          if(this.form.takeProfit && i === 0) {
+            order.take_profit = this.form.takeProfit ;
+          }
+          if(this.form.stopLoss  && i === 0) {
+            order.stop_loss = this.form.stopLoss ;
+          }
+          this.orders.push(order);
         }
       }
     },
