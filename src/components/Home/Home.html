@@ -5,7 +5,28 @@
         wrap
         column
     >
-      <orders-form></orders-form>
+      <v-row justify="space-between">
+        <v-col v-if="$ui.showTvChart"
+            cols="12"
+            xl="8"
+            lg="12"
+            md="12"
+            sm="12"
+            xs="12"
+        >
+          <webview src="https://www.tradingview.com/chart" style="min-height: 63vh; height: 100%"></webview>
+        </v-col>
+        <v-col
+            cols="12"
+            :xl="$ui.showTvChart ? 4 : 12"
+            lg="12"
+            md="12"
+            sm="12"
+            xs="12"
+        >
+          <orders-form></orders-form>
+        </v-col>
+      </v-row>
       <br>
       <open-orders-list></open-orders-list>
       <div class="caption mt-2">

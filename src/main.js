@@ -10,6 +10,10 @@ import bybitApi from './plugins/bybitApi';
 
 Vue.use(bybitApi);
 
+import ui from './plugins/ui';
+
+Vue.use(ui);
+
 Vue.config.productionTip = false;
 
 new Vue({
