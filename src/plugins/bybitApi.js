@@ -219,19 +219,21 @@ export default {
       },
       created() {
         if (localStorage.apiKey) {
-          this.apiKey = localStorage.apiKey;
+          this.apiKey = localStorage.apiKey.trim();
         }
         if (localStorage.apiSecret) {
-          this.apiSecret = localStorage.apiSecret;
+          this.apiSecret = localStorage.apiSecret.trim();
         }
         this.init();
       },
       watch: {
         apiKey(apiKey) {
-          localStorage.apiKey = apiKey;
+          this.apiKey = apiKey.trim();
+          localStorage.apiKey = apiKey.trim();
         },
         apiSecret(apiSecret) {
-          localStorage.apiSecret = apiSecret;
+          this.apiSecret = apiSecret.trim();
+          localStorage.apiSecret = apiSecret.trim();
         },
       },
     });
