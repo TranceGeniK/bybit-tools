@@ -26,8 +26,8 @@ export default {
         v => !isNaN(v) || 'Take Profit must be an number',
         v => !Number.isInteger(v) || 'Take Profit must be an integer',
       ],
-      StopLoss: '',
-      StopLossRules: [
+      stopLoss: '',
+      stopLossRules: [
         v => !isNaN(v) || 'Stop Loss must be an number',
         v => !Number.isInteger(v) || 'Stop Loss must be an integer',
       ],
@@ -44,11 +44,17 @@ export default {
         v => !Number.isInteger(v) || 'Number of orders must be an integer',
         v => v >= 2 || 'Number of orders must be above 2',
       ],
-      scale: ORDER_DISTRIBUTIONS.FLAT.label,
+      scale: ORDER_DISTRIBUTIONS.INCREASING.label,
       scaleItems: [
         ORDER_DISTRIBUTIONS.FLAT.label,
         ORDER_DISTRIBUTIONS.INCREASING.label,
         ORDER_DISTRIBUTIONS.DECREASING.label,
+      ],
+      coefficient: '10',
+      coefficientRules: [
+        v => !isNaN(v) || 'Coefficient must be an number',
+        v => !Number.isInteger(v) || 'Coefficient must be an integer',
+        v => parseInt(v) >= 1 || 'Coefficient must be greater than 1',
       ],
       postOnly: false,
       reduceOnly: false,
@@ -102,6 +108,7 @@ export default {
                 ? ORDER_DISTRIBUTIONS.DECREASING.label
                 : ORDER_DISTRIBUTIONS.INCREASING.label)),
         tickSize: 1,
+        coefficient : parseInt(this.form.coefficient)
       });
       if (side === 'Buy') {
         for (let i = orders.length - 1; i >= 0; i--) {

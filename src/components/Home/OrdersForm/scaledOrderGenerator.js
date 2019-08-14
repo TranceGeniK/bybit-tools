@@ -7,7 +7,7 @@ import {ORDER_DISTRIBUTIONS} from './constants';
 import {Decimal} from 'decimal.js';
 
 // Get distribution weights
-const getAmountDistribution = (distribution, orderCount) => {
+const getAmountDistribution = (distribution, orderCount, coefficient) => {
   if (
       distribution === ORDER_DISTRIBUTIONS.DECREASING.label ||
       distribution === ORDER_DISTRIBUTIONS.INCREASING.label
@@ -15,8 +15,8 @@ const getAmountDistribution = (distribution, orderCount) => {
     const pricePointPercentages = [];
     
     // Min and max percentage of the amount allocated per price point
-    const minPercentage = 0.05;
-    const maxPercentage = 0.4;
+    const minPercentage = 1;
+    const maxPercentage = coefficient;
     
     for (let i = 0; i < orderCount; i += 1) {
       pricePointPercentages[i] =
@@ -76,6 +76,7 @@ const generateOrders = ({
                           priceUpper,
                           distribution,
                           tickSize,
+                          coefficient
                         }) => {
   if (amount < 2) {
     return new Error('Amount must be greater than or equal to 2');
@@ -85,7 +86,7 @@ const generateOrders = ({
     return new Error('Number of orders must be between 2 and 200');
   }
   
-  const weights = getAmountDistribution(distribution, orderCount);
+  const weights = getAmountDistribution(distribution, orderCount, coefficient);
   const orderSizes = distributeAmount(amount, weights);
   
   const priceDiff = priceUpper - priceLower;

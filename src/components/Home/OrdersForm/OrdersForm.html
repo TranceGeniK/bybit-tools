@@ -46,6 +46,11 @@
         label="Scale"
         required
     ></v-select>
+    <v-text-field
+        v-model="form.coefficient"
+        :rules="form.coefficientRules"
+        label="Scale Coefficient (Higher is stronger)"
+    ></v-text-field>
   
     <v-layout wrap justify-space-around>
       <v-switch v-model="form.postOnly" class="ma-4" color="primary" label="Post-only"></v-switch>
