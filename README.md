@@ -11,6 +11,11 @@ Little tool to place and cancel scaled orders on bybit
 
 [Overview and quick how-to by Crypto Ranger](https://www.youtube.com/watch?v=it4fIeX-Gc0)
 
+
+[Referral bybit Link](https://www.bybit.com/app/register?ref=gnlDr) 
+
+Referral code : gnlDr
+
 ##### If you want to build it yourself :
 ```
 npm install
