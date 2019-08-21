@@ -7,7 +7,7 @@ export default {
       methods: {
       },
       created() {
-        if (localStorage.showTvChart) {
+        if (localStorage.showTvChart !== undefined) {
           this.showTvChart = localStorage.showTvChart;
         }
       },
