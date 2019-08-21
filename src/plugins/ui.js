@@ -8,7 +8,7 @@ export default {
       },
       created() {
         if (localStorage.showTvChart !== undefined) {
-          this.showTvChart = localStorage.showTvChart;
+          this.showTvChart = localStorage.showTvChart  === 'true';
         }
       },
       watch: {

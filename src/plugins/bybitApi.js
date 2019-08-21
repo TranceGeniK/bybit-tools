@@ -233,7 +233,7 @@ export default {
           this.apiSecret = localStorage.apiSecret.trim();
         }
         if (localStorage.isTestnet !== undefined) {
-          this.isTestnet = localStorage.isTestnet;
+          this.isTestnet = localStorage.isTestnet === 'true';
         }
         this.init();
       },
