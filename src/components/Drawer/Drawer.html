@@ -7,6 +7,7 @@
   <v-form>
     <v-container>
       <v-layout wrap>
+        <v-switch v-model="$bybitApi.isTestnet" color="primary" label="Testnet"></v-switch>
         <v-text-field
             v-model="$bybitApi.apiKey"
             label="API Key"
@@ -17,6 +18,7 @@
             label="Private Key"
             required
         ></v-text-field>
+        
         <v-btn
             color="darkgrey"
             class="mr-4"

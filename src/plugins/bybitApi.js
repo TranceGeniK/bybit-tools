@@ -7,16 +7,34 @@ export default {
       data: {
         apiKey: '',
         apiSecret: '',
+        isTestnet: false,
         url: 'https://api.bybit.com/open-api/',
         wsUrl: 'wss://stream.bybit.com/realtime',
         ws: {},
         lastPrice: 0,
         openOrders: [],
+        urls: {
+          mainnet: {
+            url: 'https://api.bybit.com/open-api/',
+            wsUrl: 'wss://stream.bybit.com/realtime',
+          },
+          testnet: {
+            url: 'https://api-testnet.bybit.com/open-api/',
+            wsUrl: 'wss://stream-testnet.bybit.com/realtime',
+          },
+        },
       },
       methods: {
         init() {
-          if(this.apiKey && this.apiSecret)
-          {
+          if (this.apiKey && this.apiSecret) {
+            if (this.isTestnet) {
+              this.url = this.urls.testnet.url ;
+              this.wsUrl = this.urls.testnet.wsUrl ;
+            }
+            else {
+              this.url = this.urls.mainnet.url ;
+              this.wsUrl = this.urls.mainnet.wsUrl ;
+            }
             this.initWs();
             this.getOrders();
           }
@@ -26,7 +44,7 @@ export default {
           
           this.ws.onopen = (e) => {
             let expires = Date.now() + 1000;
-  
+            
             let signature = CryptoJS.HmacSHA256('GET/realtime' + expires,
                 this.apiSecret).
                 toString();
@@ -39,7 +57,7 @@ export default {
             
             setTimeout(() => {
               this.ws.send('{"op":"subscribe","args":["order"]}');
-            }, 500) ;
+            }, 500);
             this.ws.send(
                 '{"op":"subscribe","args":["instrument_info.100ms.BTCUSD"]}');
           };
@@ -51,21 +69,18 @@ export default {
                 this.setPrice(data);
                 break;
               case 'order' :
-                for(let i = 0; i < data.data.length; i++)
-                {
-                  if(data.data[i].order_status === 'Cancelled'
+                for (let i = 0; i < data.data.length; i++) {
+                  if (data.data[i].order_status === 'Cancelled'
                       || data.data[i].order_status === 'Rejected'
-                      || data.data[i].order_status === 'Filled')
-                  {
-                    this.removeOrder(data.data[i]) ;
+                      || data.data[i].order_status === 'Filled') {
+                    this.removeOrder(data.data[i]);
                   }
-                  if(data.data[i].order_status === 'New'
-                      || data.data[i].order_status === 'PartiallyFilled')
-                  {
-                    this.addOrder(data.data[i]) ;
+                  if (data.data[i].order_status === 'New'
+                      || data.data[i].order_status === 'PartiallyFilled') {
+                    this.addOrder(data.data[i]);
                   }
                 }
-                break ;
+                break;
               default :
                 console.log(data);
                 break;
@@ -98,13 +113,11 @@ export default {
                 options);
             if (res.data.ret_msg === 'ok') {
               this.openOrders = this.openOrders.concat(res.data.result.data);
-              if(res.data.result.last_page > page)
-              {
-                await this.getOrders(page + 1) ;
+              if (res.data.result.last_page > page) {
+                await this.getOrders(page + 1);
               }
-            }
-            else {
-              console.error(res) ;
+            } else {
+              console.error(res);
             }
           } catch (e) {
             console.error(e);
@@ -115,16 +128,15 @@ export default {
             let res = await axios.post(this.url + 'order/create',
                 this.signData(data));
             console.log(res);
-            if(res.data.ret_msg === 'ok') {
+            if (res.data.ret_msg === 'ok') {
               this.$notify({
                 text: 'Order placed',
-                type: 'success'
+                type: 'success',
               });
-            }
-            else {
+            } else {
               this.$notify({
                 text: res.data.ret_msg,
-                type: 'error'
+                type: 'error',
               });
             }
             
@@ -132,27 +144,26 @@ export default {
             console.error(e);
             this.$notify({
               text: e,
-              type: 'error'
+              type: 'error',
             });
           }
         },
         async cancelOrder(id) {
           try {
             let data = {
-              order_id : id
-            } ;
+              order_id: id,
+            };
             let res = await axios.post(this.url + 'order/cancel',
                 this.signData(data));
-            if(res.data.ret_msg === 'ok') {
+            if (res.data.ret_msg === 'ok') {
               this.$notify({
                 text: 'Order cancelled',
-                type: 'success'
+                type: 'success',
               });
-            }
-            else {
+            } else {
               this.$notify({
                 text: res.data.ret_msg,
-                type: 'error'
+                type: 'error',
               });
             }
           } catch (e) {
@@ -160,31 +171,28 @@ export default {
           }
         },
         async cancelAllOpenOrders() {
-          for(let i = 0; i < this.openOrders.length; i++)
-          {
-            this.cancelOrder(this.openOrders[i].order_id) ;
+          for (let i = 0; i < this.openOrders.length; i++) {
+            this.cancelOrder(this.openOrders[i].order_id);
           }
         },
         addOrder(order) {
-          let exists = false ;
-          order.updated_at = order.timestamp ;
-          for(let i = 0; i < this.openOrders.length; i++) {
-            if(this.openOrders[i].order_id === order.order_id)
-            {
-              exists = true ;
-              this.$set(this.openOrders, i, order) ;
+          let exists = false;
+          order.updated_at = order.timestamp;
+          for (let i = 0; i < this.openOrders.length; i++) {
+            if (this.openOrders[i].order_id === order.order_id) {
+              exists = true;
+              this.$set(this.openOrders, i, order);
             }
           }
-          if(!exists) {
-            this.openOrders.push(order) ;
+          if (!exists) {
+            this.openOrders.push(order);
           }
         },
         removeOrder(order) {
-          console.log(order, this.openOrders) ;
-          for(let i = 0; i < this.openOrders.length; i++) {
-            if(this.openOrders[i].order_id === order.order_id)
-            {
-              this.openOrders.splice(i, 1) ;
+          console.log(order, this.openOrders);
+          for (let i = 0; i < this.openOrders.length; i++) {
+            if (this.openOrders[i].order_id === order.order_id) {
+              this.openOrders.splice(i, 1);
             }
           }
         },
@@ -224,6 +232,9 @@ export default {
         if (localStorage.apiSecret) {
           this.apiSecret = localStorage.apiSecret.trim();
         }
+        if (localStorage.isTestnet !== undefined) {
+          this.isTestnet = localStorage.isTestnet;
+        }
         this.init();
       },
       watch: {
@@ -234,6 +245,10 @@ export default {
         apiSecret(apiSecret) {
           this.apiSecret = apiSecret.trim();
           localStorage.apiSecret = apiSecret.trim();
+        },
+        isTestnet(isTestnet) {
+          this.isTestnet = isTestnet;
+          localStorage.isTestnet = isTestnet;
         },
       },
     });
