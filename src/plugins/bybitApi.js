@@ -8,18 +8,20 @@ export default {
         apiKey: '',
         apiSecret: '',
         isTestnet: false,
-        url: 'https://api.bybit.com/open-api/',
+        url: 'https://api2.bybit.com/',
         wsUrl: 'wss://stream.bybit.com/realtime',
         ws: {},
         lastPrice: 0,
         openOrders: [],
+        openPosition: null,
+        currentSymbol : 'BTCUSD',
         urls: {
           mainnet: {
-            url: 'https://api.bybit.com/open-api/',
+            url: 'https://api2.bybit.com/',
             wsUrl: 'wss://stream.bybit.com/realtime',
           },
           testnet: {
-            url: 'https://api-testnet.bybit.com/open-api/',
+            url: 'https://api-testnet.bybit.com/',
             wsUrl: 'wss://stream-testnet.bybit.com/realtime',
           },
         },
@@ -37,6 +39,7 @@ export default {
             }
             this.initWs();
             this.getOrders();
+            setInterval(this.getPosition, 1050) ;
           }
         },
         initWs() {
@@ -57,6 +60,7 @@ export default {
             
             setTimeout(() => {
               this.ws.send('{"op":"subscribe","args":["order"]}');
+              this.ws.send('{"op":"subscribe","args":["position"]}');
             }, 500);
             this.ws.send(
                 '{"op":"subscribe","args":["instrument_info.100ms.BTCUSD"]}');
@@ -89,13 +93,11 @@ export default {
         },
         setPrice(data) {
           if (data.type === 'snapshot') {
-            this.lastPrice = 'BTC $' +
-                Number(data.data.last_price_e4 + 'e-4').toFixed(2);
+            this.lastPrice = Number(data.data.last_price_e4 + 'e-4').toFixed(2);
           }
           if (data.type === 'delta') {
             if (data.data.update[0].last_price_e4) {
-              this.lastPrice = 'BTC $' +
-                  Number(data.data.update[0].last_price_e4 + 'e-4').toFixed(2);
+              this.lastPrice = Number(data.data.update[0].last_price_e4 + 'e-4').toFixed(2);
             }
           }
         },
@@ -109,7 +111,7 @@ export default {
             let options = {
               params: this.signData(data),
             };
-            let res = await axios.get(this.url + 'order/list',
+            let res = await axios.get(this.url + 'open-api/order/list',
                 options);
             if (res.data.ret_msg === 'ok') {
               this.openOrders = this.openOrders.concat(res.data.result.data);
@@ -118,6 +120,32 @@ export default {
               }
             } else {
               console.error(res);
+              this.$notify({
+                text: res.data.ret_msg,
+                type: 'error',
+              });
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        },
+        async getPosition() {
+          try {
+            let data = {};
+            let options = {
+              params: this.signData(data)
+            };
+            let res = await axios.get(this.url + 'position/list',
+                options);
+            if (res.data.ret_msg === 'ok') {
+              // console.log(res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)) ;
+              this.openPosition = res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)[0] ;
+            } else {
+              console.error(res);
+              this.$notify({
+                text: res.data.ret_msg,
+                type: 'error',
+              });
             }
           } catch (e) {
             console.error(e);

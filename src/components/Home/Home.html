@@ -5,16 +5,19 @@
         wrap
         column
     >
+      <open-position v-if="$bybitApi.openPosition && $ui.showOpenPosition"></open-position>
       <v-row justify="space-between">
         <v-col v-if="$ui.showTvChart"
-            cols="12"
-            xl="8"
-            lg="12"
-            md="12"
-            sm="12"
-            xs="12"
+               cols="12"
+               xl="8"
+               lg="12"
+               md="12"
+               sm="12"
+               xs="12"
         >
-          <webview src="https://www.tradingview.com/chart" style="min-height: 65vh; max-height: calc(100vh - 64px - 48px); height: 100%"></webview>
+          <webview src="https://www.tradingview.com/chart"
+                   style="min-height: 65vh; height: 100%"
+                   :style="{'max-height': 'calc(100vh - 64px - 48px' + ($ui.showOpenPosition ? ' - 61px)' : ')')}"></webview>
         </v-col>
         <v-col
             cols="12"
@@ -27,7 +30,6 @@
           <orders-form></orders-form>
         </v-col>
       </v-row>
-      <br>
       <open-orders-list></open-orders-list>
       <div class="caption mt-2">
         BTC Tip line : 1C24gX5aCBn4qdoUVKkmkj9dWGmKeMzV8L /
