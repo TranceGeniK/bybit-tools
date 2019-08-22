@@ -16,6 +16,10 @@
       <span v-else>{{item.unrealised_pnl.toFixed(5)}} ({{(100 * item.unrealised_pnl / item.position_margin).toFixed(2)}}%)</span>
     </template>
     
+    <template v-slot:item.entry_price="{ item }">
+      {{item.entry_price.toFixed(2)}}
+    </template>
+    
     <template v-slot:item.position_margin="{ item }">
       {{item.position_margin.toFixed(5)}} (≈{{(item.position_margin * $bybitApi.lastPrice).toFixed(2)}} USD)
     </template>
