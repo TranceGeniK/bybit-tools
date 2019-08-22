@@ -9,6 +9,7 @@
       :headers="headers"
       :items="orders"
       :items-per-page="10"
+      dense
   >
     <template v-slot:item.reduce_only="{ item }">
       {{item.reduce_only ? 'Yes' : 'No'}}

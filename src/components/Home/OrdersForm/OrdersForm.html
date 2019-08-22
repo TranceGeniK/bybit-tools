@@ -6,40 +6,47 @@
       autocomplete="off"
   >
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.higherPrice"
         :rules="form.higherPriceRules"
         label="Higher Price"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.lowerPrice"
         :rules="form.lowerPriceRules"
         label="Lower Price"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.contracts"
         :rules="form.contractsRules"
         label="Number of contracts"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.orders"
         :rules="form.ordersRules"
         label="Number of orders"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.takeProfit"
         :rules="form.takeProfitRules"
         label="Take Profit"
     ></v-text-field>
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.stopLoss"
         :rules="form.stopLossRules"
         label="Stop Loss"
     ></v-text-field>
     <v-select class="ma-0"
+              height="25"
         v-model="form.scale"
         :items="form.scaleItems"
         :rules="[v => !!v || 'Scale is required']"
@@ -47,29 +54,30 @@
         required
     ></v-select>
     <v-text-field class="ma-0"
+                  height="25"
         v-model="form.coefficient"
         :rules="form.coefficientRules"
         label="Scale Coefficient (Higher is stronger)"
     ></v-text-field>
-  
-    <v-layout wrap justify-space-around>
+    <v-layout row wrap justify-space-around class="ma-0 pa-0" style="height: 44px">
       <v-switch v-model="form.postOnly" class="ma-0" color="primary" label="Post-only"></v-switch>
       <v-switch v-model="form.reduceOnly" class="ma-0" color="primary" label="Reduce-only"></v-switch>
     </v-layout>
-    
     <v-layout wrap align-center column>
       <v-layout align-center justify-space-between mb-2>
         <v-btn
             :disabled="!valid"
             color="#78b63f"
-            class="ma-1"
+            class="ml-1 mr-1 mb-1"
+            small
             @click="previewBuy"
         >
           Preview buy entries
         </v-btn>
         <v-btn
             color="darkgrey"
-            class="ma-1"
+            class="ml-1 mr-1 mb-1"
+            small
             @click="reset"
         >
           Reset
@@ -78,7 +86,8 @@
         <v-btn
             :disabled="!valid"
             color="#ba4967"
-            class="ma-1"
+            class="ml-1 mr-1 mb-1"
+            small
             @click="previewSell"
         >
           Preview sell entries
@@ -91,7 +100,7 @@
         <v-btn
             :disabled="!valid"
             color="#78b63f"
-            class="ma-1"
+            class="ma-1 mt-2"
             @click="buy"
         >
           Buy
@@ -100,7 +109,7 @@
         <v-btn
             :disabled="!valid"
             color="#ba4967"
-            class="ma-1"
+            class="ma-1 mt-2"
             @click="sell"
         >
           Sell
