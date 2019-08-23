@@ -8,7 +8,7 @@ export default {
         apiKey: '',
         apiSecret: '',
         isTestnet: false,
-        url: 'https://api2.bybit.com/',
+        url: 'https://api.bybit.com/',
         wsUrl: 'wss://stream.bybit.com/realtime',
         ws: {},
         lastPrice: 0,
@@ -17,7 +17,7 @@ export default {
         currentSymbol : 'BTCUSD',
         urls: {
           mainnet: {
-            url: 'https://api2.bybit.com/',
+            url: 'https://api.bybit.com/',
             wsUrl: 'wss://stream.bybit.com/realtime',
           },
           testnet: {
@@ -60,7 +60,7 @@ export default {
             
             setTimeout(() => {
               this.ws.send('{"op":"subscribe","args":["order"]}');
-              this.ws.send('{"op":"subscribe","args":["position"]}');
+              // this.ws.send('{"op":"subscribe","args":["position"]}');
             }, 500);
             this.ws.send(
                 '{"op":"subscribe","args":["instrument_info.100ms.BTCUSD"]}');
@@ -153,7 +153,7 @@ export default {
         },
         async placeOrder(data) {
           try {
-            let res = await axios.post(this.url + 'order/create',
+            let res = await axios.post(this.url + 'open-api/order/create',
                 this.signData(data));
             console.log(res);
             if (res.data.ret_msg === 'ok') {
@@ -181,7 +181,7 @@ export default {
             let data = {
               order_id: id,
             };
-            let res = await axios.post(this.url + 'order/cancel',
+            let res = await axios.post(this.url + 'open-api/order/cancel',
                 this.signData(data));
             if (res.data.ret_msg === 'ok') {
               this.$notify({
