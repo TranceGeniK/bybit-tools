@@ -6,6 +6,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "electron:build": "vue-cli-service electron:build",
+    "electron:build:linux": "vue-cli-service electron:build '--linux'",
+    "electron:build:mac": "vue-cli-service electron:build '--mac'",
+    "electron:build:win": "vue-cli-service electron:build '--win'",
+    "electron:build:all": "npm run electron:build:linux && npm run electron:build:win && npm run electron:build:mac",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
