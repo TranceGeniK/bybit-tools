@@ -64,7 +64,7 @@
       <v-switch v-model="form.reduceOnly" class="ma-0" color="primary" label="Reduce-only"></v-switch>
     </v-layout>
     <v-layout wrap align-center column>
-      <v-layout align-center justify-space-between mb-2>
+      <v-layout style="width: 100%" justify-space-between mb-2>
         <v-btn
             :disabled="!valid"
             color="#78b63f"
@@ -96,14 +96,14 @@
       
       <preview-orders v-if="preview.length > 0" :orders="preview" @close="preview = []"></preview-orders>
       
-      <v-layout>
+      <v-layout style="width: 100%" justify-space-between>
         <v-btn
             :disabled="!valid"
             color="#78b63f"
             class="ma-1 mt-2"
             @click="buy"
         >
-          Buy
+          Buy / Long
         </v-btn>
         
         <v-btn
@@ -112,7 +112,7 @@
             class="ma-1 mt-2"
             @click="sell"
         >
-          Sell
+          Sell / Short
         </v-btn>
       </v-layout>
     </v-layout>

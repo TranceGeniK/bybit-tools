@@ -27,7 +27,20 @@
             sm="12"
             xs="12"
         >
-          <ladder-orders-form></ladder-orders-form>
+          <v-btn-toggle
+              v-model="orderTypeId"
+              mandatory
+              color="primary"
+          >
+            <v-btn small>
+              Ladder
+            </v-btn>
+            <v-btn small>
+              Limit
+            </v-btn>
+          </v-btn-toggle>
+          <ladder-orders-form v-show="orderTypeId === 0"></ladder-orders-form>
+          <limit-order-form v-show="orderTypeId === 1"></limit-order-form>
         </v-col>
       </v-row>
       <open-orders-list></open-orders-list>
