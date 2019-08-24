@@ -13,7 +13,7 @@ Including a webview to *your* tradingview chart, allowing you to use custom indi
 [Overview and quick how-to by Crypto Ranger](https://www.youtube.com/watch?v=it4fIeX-Gc0)
 
 
-Bybit API key creation : 
+Bybit API key parameters : 
 
 ![Bybit Api key parameters](screenshots/bybit_key_parameters.png)
 
