@@ -46,7 +46,7 @@ export default {
           this.ws = new WebSocket(`${this.wsUrl}`);
           
           this.ws.onopen = (e) => {
-            let expires = Date.now() + 1000;
+            let expires = Date.now() + 1500;
             
             let signature = CryptoJS.HmacSHA256('GET/realtime' + expires,
                 this.apiSecret).
