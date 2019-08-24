@@ -227,7 +227,7 @@ export default {
         },
         signData(data) {
           data.api_key = this.apiKey;
-          data.timestamp = Date.now();
+          data.timestamp = Date.now() - 500;
           let dataString = this.objToString(this.sortObject(data));
           data.sign = CryptoJS.HmacSHA256(dataString, this.apiSecret).
               toString();
