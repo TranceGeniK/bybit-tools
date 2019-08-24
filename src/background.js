@@ -5,6 +5,7 @@ import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib';
+import open from 'open';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -22,8 +23,13 @@ function createWindow() {
     width: 1366, height: 768, webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
-      webSecurity: false
+      webSecurity: false,
     },
+  });
+  
+  win.webContents.on('new-window', function(event, url) {
+    event.preventDefault();
+    open(url);
   });
   
   if (process.env.WEBPACK_DEV_SERVER_URL) {
