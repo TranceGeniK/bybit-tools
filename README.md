@@ -1,7 +1,8 @@
 # bybit-tools
 
-Little tool to place and cancel scaled orders on bybit
+Desktop app to place scaled orders on bybit
 
+Including a webview to *your* tradingview chart, allowing you to use custom indicators
 
 ![Preview](./screenshots/main_screen.png)
 
