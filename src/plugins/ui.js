@@ -21,6 +21,9 @@ export default {
         },
         showOpenPosition(showOpenPosition) {
           localStorage.showOpenPosition = showOpenPosition;
+          if(!showOpenPosition) {
+            clearInterval(this.$bybitApi.positionInterval)
+          }
         },
       },
     });

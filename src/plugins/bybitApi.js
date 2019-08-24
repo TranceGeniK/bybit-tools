@@ -25,6 +25,7 @@ export default {
             wsUrl: 'wss://stream-testnet.bybit.com/realtime',
           },
         },
+        positionInterval : undefined
       },
       methods: {
         init() {
@@ -39,7 +40,7 @@ export default {
             }
             this.initWs();
             this.getOrders();
-            setInterval(this.getPosition, 1050) ;
+            this.positionInterval = setInterval(this.getPosition, 1050) ;
           }
         },
         initWs() {
