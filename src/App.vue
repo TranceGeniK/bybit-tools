@@ -32,8 +32,17 @@
   html {
     overflow-y: auto !important;
   }
-  
-  .logo {
-    display: inline;
+
+  ::-webkit-scrollbar {
+    width: 6px;
   }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+  }
+  
 </style>
