@@ -7,13 +7,6 @@
   >
     <v-text-field class="ma-0"
                   height="25"
-                  v-model="form.price"
-                  :rules="form.priceRules"
-                  label="Price"
-                  required
-    ></v-text-field>
-    <v-text-field class="ma-0"
-                  height="25"
                   v-model="form.contracts"
                   :rules="form.contractsRules"
                   label="Quantity"
@@ -31,10 +24,6 @@
                   :rules="form.stopLossRules"
                   label="Stop Loss"
     ></v-text-field>
-    <v-layout row wrap justify-space-around class="ma-0 pa-0" style="height: 44px">
-      <v-switch ma-2 v-model="form.postOnly" class="ma-0" color="primary" label="Post-only"></v-switch>
-      <v-switch ma-2 v-model="form.reduceOnly" class="ma-0" color="primary" label="Reduce-only"></v-switch>
-    </v-layout>
     <v-layout wrap align-center>
       <v-btn
           :disabled="!valid"

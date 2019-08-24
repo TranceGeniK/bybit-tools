@@ -33,9 +33,9 @@ export default {
       ],
       contracts: '',
       contractsRules: [
-        v => !!v || 'Number of contracts is required',
-        v => !isNaN(v) || 'Number of contracts must be an number',
-        v => !Number.isInteger(v) || 'Number of contracts must be an integer',
+        v => !!v || 'Quantity is required',
+        v => !isNaN(v) || 'Quantity must be an number',
+        v => !Number.isInteger(v) || 'Quantity must be an integer',
       ],
       orders: '',
       ordersRules: [

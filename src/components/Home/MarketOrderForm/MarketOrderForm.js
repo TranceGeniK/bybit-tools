@@ -1,16 +1,10 @@
 export default {
-  name: 'limit-order-form',
+  name: 'market-order-form',
   components: {},
   props: [],
   data: () => ({
     valid: true,
     form: {
-      price: '',
-      priceRules: [
-        v => !!v || 'Price is required',
-        v => !isNaN(v) || 'Price must be an number',
-        v => !Number.isInteger(v) || 'Price must be an integer',
-      ],
       takeProfit: '',
       takeProfitRules: [
         v => !isNaN(v) || 'Take Profit must be an number',
@@ -26,16 +20,14 @@ export default {
         v => !!v || 'Quantity is required',
         v => !isNaN(v) || 'Quantity must be an number',
         v => !Number.isInteger(v) || 'Quantity must be an integer',
-      ],
-      postOnly: false,
-      reduceOnly: false,
+      ]
     },
   }),
   computed: {
-
+  
   },
   mounted () {
-
+  
   },
   methods: {
     sell() {
@@ -52,11 +44,9 @@ export default {
       let order = {
         side: side,
         symbol: 'BTCUSD',
-        order_type: 'Limit',
+        order_type: 'Market',
         qty: this.form.contracts,
-        price: this.form.price,
-        time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
-        reduce_only: this.form.reduceOnly,
+        time_in_force: 'GoodTillCancel'
       } ;
       if(this.form.takeProfit) {
         order.take_profit = this.form.takeProfit ;

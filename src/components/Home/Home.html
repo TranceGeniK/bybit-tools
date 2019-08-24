@@ -32,15 +32,20 @@
               mandatory
               color="primary"
           >
-            <v-btn small>
+            <v-btn small mb-3>
               Ladder
             </v-btn>
-            <v-btn small>
+            <v-btn small mb-3>
               Limit
             </v-btn>
+            <v-btn small mb-3>
+              Market
+            </v-btn>
           </v-btn-toggle>
+          
           <ladder-orders-form v-show="orderTypeId === 0"></ladder-orders-form>
           <limit-order-form v-show="orderTypeId === 1"></limit-order-form>
+          <market-order-form v-show="orderTypeId === 2"></market-order-form>
         </v-col>
       </v-row>
       <open-orders-list></open-orders-list>

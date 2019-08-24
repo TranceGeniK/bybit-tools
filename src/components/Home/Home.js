@@ -1,15 +1,16 @@
 import LadderOrdersForm from './LadderOrdersForm';
 import LimitOrderForm from './LimitOrderForm';
+import MarketOrderForm from './MarketOrderForm';
 import OpenOrdersList from './OpenOrdersList';
 import OpenPosition from './OpenPosition';
 
 export default {
   name: 'home',
-  components: {LadderOrdersForm, LimitOrderForm, OpenOrdersList, OpenPosition},
+  components: {LadderOrdersForm, LimitOrderForm, MarketOrderForm, OpenOrdersList, OpenPosition},
   props: [],
   data () {
     return {
-      orderTypeId: 1
+      orderTypeId: 0
     }
   },
   computed: {
@@ -20,10 +21,5 @@ export default {
   },
   methods: {
   
-  },
-  watch: {
-    orderType: function() {
-      console.log(this.orderType) ;
-    }
   }
 }
