@@ -40,7 +40,7 @@ export default {
             }
             this.initWs();
             this.getOrders();
-            this.positionInterval = setInterval(this.getPosition, 1050) ;
+            this.initPositionInterval()
           }
         },
         initWs() {
@@ -129,6 +129,12 @@ export default {
           } catch (e) {
             console.error(e);
           }
+        },
+        initPositionInterval() {
+          this.positionInterval = setInterval(this.getPosition, 1050) ;
+        },
+        disablePositionInterval() {
+          clearInterval(this.positionInterval) ;
         },
         async getPosition() {
           try {
@@ -227,7 +233,7 @@ export default {
         },
         signData(data) {
           data.api_key = this.apiKey;
-          data.timestamp = Date.now() - 500;
+          data.timestamp = Date.now() - 1000;
           let dataString = this.objToString(this.sortObject(data));
           data.sign = CryptoJS.HmacSHA256(dataString, this.apiSecret).
               toString();

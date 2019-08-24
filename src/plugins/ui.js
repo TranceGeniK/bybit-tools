@@ -3,16 +3,15 @@ export default {
     Vue.prototype.$ui = new Vue({
       data: {
         showTvChart: false,
-        showOpenPosition: true
+        showOpenPosition: true,
       },
-      methods: {
-      },
+      methods: {},
       created() {
         if (localStorage.showTvChart !== undefined) {
-          this.showTvChart = localStorage.showTvChart  === 'true';
+          this.showTvChart = localStorage.showTvChart === 'true';
         }
         if (localStorage.showOpenPosition !== undefined) {
-          this.showOpenPosition = localStorage.showOpenPosition  === 'true';
+          this.showOpenPosition = localStorage.showOpenPosition === 'true';
         }
       },
       watch: {
@@ -21,8 +20,10 @@ export default {
         },
         showOpenPosition(showOpenPosition) {
           localStorage.showOpenPosition = showOpenPosition;
-          if(!showOpenPosition) {
-            clearInterval(this.$bybitApi.positionInterval)
+          if (showOpenPosition) {
+            this.$bybitApi.initPositionInterval();
+          } else {
+            this.$bybitApi.disablePositionInterval();
           }
         },
       },
