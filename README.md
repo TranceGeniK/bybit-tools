@@ -15,7 +15,7 @@ Including a webview to *your* tradingview chart, allowing you to use custom indi
 
 Bybit API key parameters : 
 
-![Bybit Api key parameters](screenshots/bybit_key_parameters.png)
+<img src="screenshots/bybit_key_parameters.png" width="200">
 
 ##### Build instructions :
 ```
