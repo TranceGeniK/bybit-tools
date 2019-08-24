@@ -131,6 +131,9 @@ export default {
           }
         },
         initPositionInterval() {
+          if(this.positionInterval) {
+            this.disablePositionInterval() ;
+          }
           this.positionInterval = setInterval(this.getPosition, 1050);
         },
         disablePositionInterval() {
