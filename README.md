@@ -13,8 +13,11 @@ Including a webview to *your* tradingview chart, allowing you to use custom indi
 [Overview and quick how-to by Crypto Ranger](https://www.youtube.com/watch?v=it4fIeX-Gc0)
 
 
+Bybit API key creation : 
 
-##### If you want to build it yourself :
+![Bybit Api key parameters](screenshots/bybit_key_parameters.png)
+
+##### Build instructions :
 ```
 npm install
 npm run electron:build
