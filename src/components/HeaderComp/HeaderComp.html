@@ -5,7 +5,9 @@
     <span class="font-weight-light">Bybit Tools</span>
   </v-toolbar-title>
   <v-spacer></v-spacer>
-  <span>BTC ${{$bybitApi.lastPrice}}</span>
+  <span v-if="decreasing" class="error--text">BTC ${{$bybitApi.lastPrice}}</span>
+  <span v-else-if="increasing" class="success--text">BTC ${{$bybitApi.lastPrice}}</span>
+  <span v-else>BTC ${{$bybitApi.lastPrice}}</span>
   <v-spacer></v-spacer>
   <v-btn
       text
