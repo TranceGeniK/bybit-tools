@@ -1,10 +1,10 @@
-import OrdersForm from './OrdersForm';
+import LadderOrdersForm from './LadderOrdersForm';
 import OpenOrdersList from './OpenOrdersList';
 import OpenPosition from './OpenPosition';
 
 export default {
   name: 'home',
-  components: {OrdersForm, OpenOrdersList, OpenPosition},
+  components: {LadderOrdersForm, OpenOrdersList, OpenPosition},
   props: [],
   data () {
     return {

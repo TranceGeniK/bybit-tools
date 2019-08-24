@@ -3,7 +3,7 @@ import {ORDER_DISTRIBUTIONS} from './constants';
 import {generateOrders} from './scaledOrderGenerator';
 
 export default {
-  name: 'orders-form',
+  name: 'ladder-orders-form',
   components: {PreviewOrders},
   props: [],
   data: () => ({
