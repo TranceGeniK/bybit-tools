@@ -14,7 +14,7 @@ export default {
         lastPrice: 0,
         openOrders: [],
         openPosition: null,
-        currentSymbol : 'BTCUSD',
+        currentSymbol: 'BTCUSD',
         urls: {
           mainnet: {
             url: 'https://api.bybit.com/',
@@ -25,22 +25,21 @@ export default {
             wsUrl: 'wss://stream-testnet.bybit.com/realtime',
           },
         },
-        positionInterval : undefined
+        positionInterval: undefined,
       },
       methods: {
         init() {
           if (this.apiKey && this.apiSecret) {
             if (this.isTestnet) {
-              this.url = this.urls.testnet.url ;
-              this.wsUrl = this.urls.testnet.wsUrl ;
-            }
-            else {
-              this.url = this.urls.mainnet.url ;
-              this.wsUrl = this.urls.mainnet.wsUrl ;
+              this.url = this.urls.testnet.url;
+              this.wsUrl = this.urls.testnet.wsUrl;
+            } else {
+              this.url = this.urls.mainnet.url;
+              this.wsUrl = this.urls.mainnet.wsUrl;
             }
             this.initWs();
             this.getOrders();
-            this.initPositionInterval()
+            this.initPositionInterval();
           }
         },
         initWs() {
@@ -98,7 +97,8 @@ export default {
           }
           if (data.type === 'delta') {
             if (data.data.update[0].last_price_e4) {
-              this.lastPrice = Number(data.data.update[0].last_price_e4 + 'e-4').toFixed(2);
+              this.lastPrice = Number(
+                  data.data.update[0].last_price_e4 + 'e-4').toFixed(2);
             }
           }
         },
@@ -131,26 +131,30 @@ export default {
           }
         },
         initPositionInterval() {
-          this.positionInterval = setInterval(this.getPosition, 1050) ;
+          this.positionInterval = setInterval(this.getPosition, 1050);
         },
         disablePositionInterval() {
-          clearInterval(this.positionInterval) ;
+          clearInterval(this.positionInterval);
         },
         async getPosition() {
           try {
             let data = {};
             let options = {
-              params: this.signData(data)
+              params: this.signData(data),
             };
             let res = await axios.get(this.url + 'position/list',
                 options);
             if (res.data.ret_msg === 'ok') {
               // console.log(res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)) ;
-              this.openPosition = res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)[0] ;
+              this.openPosition = res.data.result.filter(
+                  pos => pos.symbol === this.currentSymbol && pos.size > 0)[0];
             } else {
               console.error(res);
               this.$notify({
-                text: res.data.ret_msg,
+                text: res.data.ret_msg +
+                    ((res.data.ret_code === 10002) ? '<br> server_time : ' +
+                        res.data.time_now + '<br> request_time : ' +
+                        data.timestamp : '') ,
                 type: 'error',
               });
             }
