@@ -240,8 +240,8 @@ export default {
         },
         signData(data) {
           data.api_key = this.apiKey;
-          data.timestamp = Date.now() - 1500;
-          // data.recv_window = 10000;
+          data.timestamp = Date.now() - 2000;
+          data.recv_window = 10000;
           let dataString = this.objToString(this.sortObject(data));
           data.sign = CryptoJS.HmacSHA256(dataString, this.apiSecret).
               toString();
