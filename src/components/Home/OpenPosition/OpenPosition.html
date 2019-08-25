@@ -9,6 +9,12 @@
       <span v-if="item.side === 'Sell'" class="error--text">-{{item.size}}</span>
       <span v-if="item.side === 'Buy'" class="success--text">{{item.size}}</span>
     </template>
+  
+    <template v-slot:item.unrealised_pnl_last="{ item }">
+      <span v-if="unrealised_pnl_last(item.entry_price, item.size, item.side) < 0" class="error--text">{{unrealised_pnl_last(item.entry_price, item.size, item.side).toFixed(5)}} ({{(100 * unrealised_pnl_last(item.entry_price, item.size, item.side) / item.position_margin).toFixed(2)}}%)</span>
+      <span v-else-if="unrealised_pnl_last(item.entry_price, item.size, item.side) > 0" class="success--text">{{unrealised_pnl_last(item.entry_price, item.size, item.side).toFixed(5)}} ({{(100 * unrealised_pnl_last(item.entry_price, item.size, item.side) / item.position_margin).toFixed(2)}}%)</span>
+      <span v-else>{{unrealised_pnl_last(item.entry_price, item.size, item.side).toFixed(5)}} ({{(100 * unrealised_pnl_last(item.entry_price, item.size, item.side) / item.position_margin).toFixed(2)}}%)</span>
+    </template>
     
     <template v-slot:item.unrealised_pnl="{ item }">
       <span v-if="item.unrealised_pnl < 0" class="error--text">{{item.unrealised_pnl.toFixed(5)}} ({{(100 * item.unrealised_pnl / item.position_margin).toFixed(2)}}%)</span>
