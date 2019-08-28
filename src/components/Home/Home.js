@@ -6,20 +6,29 @@ import OpenPosition from './OpenPosition';
 
 export default {
   name: 'home',
-  components: {LadderOrdersForm, LimitOrderForm, MarketOrderForm, OpenOrdersList, OpenPosition},
+  components: {
+    LadderOrdersForm,
+    LimitOrderForm,
+    MarketOrderForm,
+    OpenOrdersList,
+    OpenPosition,
+  },
   props: [],
-  data () {
+  data() {
     return {
-      orderTypeId: 0
-    }
+      orderTypeId: 0,
+      expandTv : false,
+      tvStyleSmall: {
+        'max-height': 'calc(100vh - 64px - 48px' + (this.$ui.showOpenPosition ? ' - 61px)' : ')')
+      },
+      tvStyleBig: {
+        'height': 'calc(100vh - 175px)'
+      }
+    };
   },
-  computed: {
-
-  },
-  mounted () {
-
-  },
-  methods: {
+  computed: {},
+  mounted() {
   
-  }
-}
+  },
+  methods: {},
+};

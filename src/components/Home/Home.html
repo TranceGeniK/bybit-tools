@@ -9,15 +9,17 @@
       <v-row justify="space-between">
         <v-col v-if="$ui.showTvChart"
                cols="12"
-               xl="8"
+               :xl="expandTv ? '12' : '8'"
                lg="12"
                md="12"
                sm="12"
                xs="12"
         >
           <webview src="https://www.tradingview.com/chart"
-                   style="min-height: 65vh; height: 100%"
-                   :style="{'max-height': 'calc(100vh - 64px - 48px' + ($ui.showOpenPosition ? ' - 61px)' : ')')}"></webview>
+                   style="min-height: 65vh; height: 100%;"
+                   :style="expandTv ? tvStyleBig : tvStyleSmall">
+          </webview>
+          <v-btn x-small @click="expandTv = !expandTv">Toggle Chart Size</v-btn>
         </v-col>
         <v-col
             cols="12"
