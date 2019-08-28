@@ -19,7 +19,7 @@
                    style="min-height: 65vh; height: 100%;"
                    :style="expandTv ? tvStyleBig : tvStyleSmall">
           </webview>
-          <v-btn x-small @click="expandTv = !expandTv">Toggle Chart Size</v-btn>
+          <v-btn x-small class="d-none d-xl-inline" @click="expandTv = !expandTv">Toggle Chart Size</v-btn>
         </v-col>
         <v-col
             cols="12"
