@@ -2,8 +2,9 @@
   <v-layout align-center justify-space-between row ml-2 mr-2 mb-2>
     <span class="font-weight-light">Open Orders</span>
     <v-btn small
-        color="primary"
-        @click="$bybitApi.cancelAllOpenOrders()"
+           :disabled="$bybitApi.openOrders.length === 0"
+           color="primary"
+           @click="$bybitApi.cancelAllOpenOrders()"
     >
       Cancel All
     </v-btn>
@@ -16,9 +17,9 @@
   >
     <template v-slot:item.cancel="{ item }">
       <v-btn small
-          color="primary"
-          class="mr-4"
-          @click="$bybitApi.cancelOrder(item.order_id)"
+             color="primary"
+             class="mr-4"
+             @click="$bybitApi.cancelOrder(item.order_id)"
       >
         Cancel
       </v-btn>
