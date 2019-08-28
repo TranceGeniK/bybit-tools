@@ -17,16 +17,23 @@ export default {
   data() {
     return {
       orderTypeId: 0,
-      expandTv : false,
-      tvStyleSmall: {
-        'max-height': 'calc(100vh - 64px - 48px' + (this.$ui.showOpenPosition ? ' - 61px)' : ')')
-      },
-      tvStyleBig: {
-        'height': 'calc(100vh - 175px)'
-      }
+      expandTv: false,
     };
   },
-  computed: {},
+  computed: {
+    tvStyleSmall: function() {
+      return {
+        'max-height': 'calc(100vh - 64px - 48px' +
+            (this.$ui.showOpenPosition && this.$bybitApi.openPosition ? ' - 61px)' : ')'),
+      };
+    },
+    tvStyleBig: function() {
+      return {
+        'height': 'calc(100vh - 64px - 48px' +
+            (this.$ui.showOpenPosition && this.$bybitApi.openPosition ? ' - 61px)' : ')'),
+      };
+    },
+  },
   mounted() {
   
   },
