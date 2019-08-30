@@ -56,7 +56,7 @@ export default {
         v => !Number.isInteger(v) || 'Coefficient must be an integer',
         v => parseInt(v) >= 1 || 'Coefficient must be greater than 1',
       ],
-      postOnly: false,
+      postOnly: true,
       reduceOnly: false,
     },
     preview: [],

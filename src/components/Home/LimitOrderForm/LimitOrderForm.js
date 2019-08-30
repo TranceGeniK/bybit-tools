@@ -27,7 +27,7 @@ export default {
         v => !isNaN(v) || 'Quantity must be an number',
         v => !Number.isInteger(v) || 'Quantity must be an integer',
       ],
-      postOnly: false,
+      postOnly: true,
       reduceOnly: false,
     },
   }),
