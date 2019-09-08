@@ -131,8 +131,8 @@ export default {
           }
         },
         initPositionInterval() {
-          if(this.positionInterval) {
-            this.disablePositionInterval() ;
+          if (this.positionInterval) {
+            this.disablePositionInterval();
           }
           this.positionInterval = setInterval(this.getPosition, 1100);
         },
@@ -157,7 +157,7 @@ export default {
                 text: res.data.ret_msg +
                     ((res.data.ret_code === 10002) ? '<br> server_time : ' +
                         res.data.time_now + '<br> request_time : ' +
-                        data.timestamp : '') ,
+                        data.timestamp : ''),
                 type: 'error',
               });
             }
@@ -215,6 +215,20 @@ export default {
         async cancelAllOpenOrders() {
           for (let i = 0; i < this.openOrders.length; i++) {
             this.cancelOrder(this.openOrders[i].order_id);
+          }
+        },
+        async cancelAllBuyOpenOrders() {
+          for (let i = 0; i < this.openOrders.length; i++) {
+            if (this.openOrders[i].side === 'Buy') {
+              this.cancelOrder(this.openOrders[i].order_id);
+            }
+          }
+        },
+        async cancelAllSellOpenOrders() {
+          for (let i = 0; i < this.openOrders.length; i++) {
+            if (this.openOrders[i].side === 'Sell') {
+              this.cancelOrder(this.openOrders[i].order_id);
+            }
           }
         },
         addOrder(order) {

@@ -1,13 +1,34 @@
 <section class="open-orders-list">
   <v-layout align-center justify-space-between row ml-2 mr-2 mb-2>
     <span class="font-weight-light">Open Orders</span>
-    <v-btn small
-           :disabled="$bybitApi.openOrders.length === 0"
-           color="primary"
-           @click="$bybitApi.cancelAllOpenOrders()"
-    >
-      Cancel All
-    </v-btn>
+    <div>
+      <v-btn small
+             :disabled="$bybitApi.openOrders.length === 0"
+             color="success"
+             class="mr-2"
+             @click="$bybitApi.cancelAllBuyOpenOrders()"
+      >
+        Cancel Buys
+      </v-btn>
+      
+      
+      <v-btn small
+             :disabled="$bybitApi.openOrders.length === 0"
+             color="error"
+             class="mr-2"
+             @click="$bybitApi.cancelAllSellOpenOrders()"
+      >
+        Cancel Sells
+      </v-btn>
+      
+      <v-btn small
+             :disabled="$bybitApi.openOrders.length === 0"
+             color="primary"
+             @click="$bybitApi.cancelAllOpenOrders()"
+      >
+        Cancel All
+      </v-btn>
+    </div>
   </v-layout>
   
   <v-data-table
