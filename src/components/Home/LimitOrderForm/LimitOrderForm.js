@@ -32,10 +32,27 @@ export default {
     },
   }),
   computed: {
-
+    tpProfit: function() {
+      if (this.form.price && this.form.takeProfit && this.form.contracts) {
+        let btcProfit = Math.abs(
+            (1 / this.form.price) - (1 / parseFloat(this.form.takeProfit))) *
+            this.form.contracts;
+        return btcProfit.toFixed(4) + ' ≈ ' +
+            (btcProfit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+      }
+    },
+    slLoss: function() {
+      if (this.form.price && this.form.stopLoss && this.form.contracts) {
+        let btcLoss = Math.abs(
+            (1 / this.form.price) - (1 / parseFloat(this.form.stopLoss))) *
+            this.form.contracts;
+        return btcLoss.toFixed(4) + ' ≈ ' +
+            (btcLoss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+      }
+    },
   },
-  mounted () {
-
+  mounted() {
+  
   },
   methods: {
     sell() {
@@ -57,17 +74,17 @@ export default {
         price: this.form.price,
         time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
         reduce_only: this.form.reduceOnly,
-      } ;
-      if(this.form.takeProfit) {
-        order.take_profit = this.form.takeProfit ;
+      };
+      if (this.form.takeProfit) {
+        order.take_profit = this.form.takeProfit;
       }
-      if(this.form.stopLoss) {
-        order.stop_loss = this.form.stopLoss ;
+      if (this.form.stopLoss) {
+        order.stop_loss = this.form.stopLoss;
       }
-      return order ;
+      return order;
     },
     reset() {
       this.$refs.form.reset();
     },
-  }
-}
+  },
+};

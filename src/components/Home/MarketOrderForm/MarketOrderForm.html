@@ -12,14 +12,20 @@
                   label="Quantity"
                   required
     ></v-text-field>
+    <br>
     <v-text-field class="ma-0"
                   height="25"
+                  :hint="tpProfit"
+                  persistent-hint
                   v-model="form.takeProfit"
                   :rules="form.takeProfitRules"
                   label="Take Profit"
     ></v-text-field>
+    <br>
     <v-text-field class="ma-0"
                   height="25"
+                  :hint="slLoss"
+                  persistent-hint
                   v-model="form.stopLoss"
                   :rules="form.stopLossRules"
                   label="Stop Loss"

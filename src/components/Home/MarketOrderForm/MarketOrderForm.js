@@ -24,7 +24,18 @@ export default {
     },
   }),
   computed: {
-  
+    tpProfit: function() {
+      if(this.form.takeProfit && this.form.contracts) {
+        let btcProfit = Math.abs((1 / this.$bybitApi.lastPrice) - (1 / parseFloat(this.form.takeProfit))) * this.form.contracts ;
+        return btcProfit.toFixed(4) + ' ≈ ' + (btcProfit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+      }
+    },
+    slLoss: function() {
+      if(this.form.stopLoss && this.form.contracts) {
+        let btcLoss = Math.abs((1 / this.$bybitApi.lastPrice) - (1 / parseFloat(this.form.stopLoss))) * this.form.contracts;
+        return btcLoss.toFixed(4) + ' ≈ ' + (btcLoss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+      }
+    }
   },
   mounted () {
   
