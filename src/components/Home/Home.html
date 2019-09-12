@@ -15,7 +15,7 @@
                sm="12"
                xs="12"
         >
-          <webview src="https://www.tradingview.com/chart"
+          <webview :src="'https://www.tradingview.com/chart/' + $ui.chartsIds[$bybitApi.currentSymbol]"
                    style="min-height: 65vh; height: 100%;"
                    :style="expandTv ? tvStyleBig : tvStyleSmall">
           </webview>

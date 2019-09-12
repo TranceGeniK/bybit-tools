@@ -4,6 +4,12 @@ export default {
       data: {
         showTvChart: false,
         showOpenPosition: true,
+        chartsIds: {
+          "BTCUSD" : '',
+          "ETHUSD" : '',
+          "EOSUSD" : '',
+          "XRPUSD" : ''
+        }
       },
       methods: {},
       created() {
@@ -13,10 +19,19 @@ export default {
         if (localStorage.showOpenPosition !== undefined) {
           this.showOpenPosition = localStorage.showOpenPosition === 'true';
         }
+        if (localStorage.chartsIds !== undefined) {
+          this.chartsIds = JSON.parse(localStorage.chartsIds);
+        }
       },
       watch: {
         showTvChart(showTvChart) {
           localStorage.showTvChart = showTvChart;
+        },
+        chartsIds: {
+          deep: true,
+          handler(chartsIds) {
+            localStorage.chartsIds = JSON.stringify(chartsIds);
+          }
         },
         showOpenPosition(showOpenPosition) {
           localStorage.showOpenPosition = showOpenPosition;

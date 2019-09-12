@@ -31,9 +31,17 @@
         >
           Init
         </v-btn>
-  
+        
         <v-switch v-model="$ui.showTvChart" class="ma-2 mt-4" color="primary" label="Show Tradingview Chart"></v-switch>
-        <v-switch v-model="$ui.showOpenPosition" class="ma-2 mt-0" color="primary" label="Show Open Position"></v-switch>
+        <v-switch v-model="$ui.showOpenPosition" class="ma-2 mt-0" color="primary"
+                  label="Show Open Position"></v-switch>
+        
+        <v-text-field
+            v-for="symbol in $bybitApi.availableSymbols"
+            v-model="$ui.chartsIds[symbol]"
+            :label="symbol + ' Tradingview chart id'"
+        ></v-text-field>
+      
       </v-layout>
     </v-container>
   </v-form>
