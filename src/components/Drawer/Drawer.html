@@ -4,24 +4,29 @@
     app
     clipped
 >
-  <v-form>
+  <v-form v-model="valid" :lazy-validation="false">
     <v-container>
       <v-layout wrap>
         <v-switch v-model="$bybitApi.isTestnet" color="primary" label="Testnet"></v-switch>
         <v-text-field
             v-model="$bybitApi.apiKey"
+            :rules="apiKeyRules"
             label="API Key"
+            counter="18"
             required
         ></v-text-field>
         <v-text-field
             v-model="$bybitApi.apiSecret"
+            :rules="privateKeyRules"
             label="Private Key"
+            counter="36"
             required
         ></v-text-field>
         
         <v-btn
             color="darkgrey"
             class="mr-4"
+            :disabled="!valid"
             @click="init"
         >
           Init

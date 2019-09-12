@@ -4,6 +4,15 @@ export default {
   props: ['value'],
   data () {
     return {
+      apiKeyRules: [
+        (v) => !!v || 'Api key is required',
+        (v) => v && v.length === 18 || 'Api key must be 18 characters'
+      ],
+      privateKeyRules: [
+        (v) => !!v || 'Private Key is required',
+        (v) => v && v.length === 36 || 'Private Key must be 36 characters'
+      ],
+      valid: true
     }
   },
   computed: {
