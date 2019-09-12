@@ -19,26 +19,30 @@ export default {
         priceRules: [
           v => !!v || 'Price is required',
           v => v && !isNaN(v) || 'Price must be an number',
-          v => v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Price must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         takeProfitRules: [
           v => !v || v && !isNaN(v) || 'Take Profit must be an number',
-          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => !v || v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Take Profit must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         stopLossRules: [
           v => !v || v && !isNaN(v) || 'Stop Loss must be an number',
-          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => !v || v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Stop Loss must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         contractsRules: [
           v => !!v || 'Quantity is required',
           v => v && !isNaN(v) || 'Quantity must be an number',
-          v => v && (parseFloat(v) % this.$bybitApi.currentQtyStep === 0) ||
+          v => v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentQtyStep + 'e4') === 0) ||
               'Quantity must be a multiple of ' +
               this.$bybitApi.currentQtyStep,
         ],
@@ -64,7 +68,6 @@ export default {
     },
   },
   mounted() {
-  
   },
   methods: {
     sell() {

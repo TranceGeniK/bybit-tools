@@ -35,40 +35,46 @@ export default {
         higherPriceRules: [
           v => !!v || 'Higher Price is required',
           v => v && !isNaN(v) || 'Higher Price must be an number',
-          v => v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Higher Price must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         lowerPriceRules: [
           v => !!v || 'Lower Price is required',
           v => v && !isNaN(v) || 'Lower Price must be an number',
-          v => v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Lower Price must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         takeProfitRules: [
           v => !v || v && !isNaN(v) || 'Take Profit must be an number',
-          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => !v || v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Take Profit must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         stopLossRules: [
           v => !v || v && !isNaN(v) || 'Stop Loss must be an number',
-          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+          v => !v || v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Stop Loss must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         contractsRules: [
           v => !!v || 'Quantity is required',
           v => v && !isNaN(v) || 'Quantity must be an number',
-          v => v && (parseFloat(v) % this.$bybitApi.currentQtyStep === 0) ||
+          v => v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentQtyStep + 'e4') === 0) ||
               'Quantity must be a multiple of ' +
               this.$bybitApi.currentQtyStep,
         ],
         ordersRules: [
           v => !!v || 'Number of orders is required',
           v => v && !isNaN(v) || 'Number of orders must be an number',
-          v => v && !Number.isInteger(v) || 'Number of orders must be an integer',
+          v => v && !Number.isInteger(v) ||
+              'Number of orders must be an integer',
           v => v && v >= 2 || 'Number of orders must be above 2',
         ],
         coefficientRules: [

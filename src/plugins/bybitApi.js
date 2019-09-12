@@ -15,6 +15,7 @@ export default {
         markPrice: 0,
         openOrders: [],
         openPosition: null,
+        availableSymbols: ['BTCUSD', 'ETHUSD'],
         currentSymbol: 'BTCUSD',
         currentTickSize: 0.5,
         currentQtyStep: 1,
@@ -46,8 +47,18 @@ export default {
             this.initPositionInterval();
           }
         },
+        changeSymbol(symbol) {
+          this.ws.close();
+          this.lastPrice = 0;
+          this.markPrice = 0;
+          this.openOrders = [];
+          this.openPosition = null;
+          this.currentSymbol = symbol;
+          this.init();
+        },
         async updateInstrumentDetails() {
           let res = await axios.get(this.url + 'v2/public/symbols');
+          this.availableSymbols = res.data.result.map(el => el.name);
           if (res.data.ret_msg === 'OK') {
             let symbolInfos = res.data.result.find(
                 el => el.name === this.currentSymbol);
@@ -138,7 +149,9 @@ export default {
             let res = await axios.get(this.url + 'open-api/order/list',
                 options);
             if (res.data.ret_msg === 'ok') {
-              this.openOrders = this.openOrders.concat(res.data.result.data);
+              if (res.data.result.data) {
+                this.openOrders = this.openOrders.concat(res.data.result.data);
+              }
               if (res.data.result.last_page > page) {
                 await this.getOrders(page + 1);
               }
@@ -257,6 +270,7 @@ export default {
         addOrder(order) {
           let exists = false;
           order.updated_at = order.timestamp;
+          console.log(order, this.openOrders);
           for (let i = 0; i < this.openOrders.length; i++) {
             if (this.openOrders[i].order_id === order.order_id) {
               exists = true;

@@ -8,6 +8,8 @@ export default {
       lastPriceDecreasing: false,
       markPriceIncreasing: false,
       markPriceDecreasing: false,
+      symbolIndex: this.$bybitApi.availableSymbols.indexOf(
+          this.$bybitApi.currentSymbol),
     };
   },
   computed: {},
@@ -33,6 +35,9 @@ export default {
         this.markPriceIncreasing = false;
         this.markPriceDecreasing = true;
       }
+    },
+    symbolIndex: function() {
+      this.$bybitApi.changeSymbol(this.$bybitApi.availableSymbols[this.symbolIndex]);
     },
   },
 };

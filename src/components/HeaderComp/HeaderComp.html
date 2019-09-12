@@ -5,7 +5,16 @@
     <span class="font-weight-light">Bybit Tools</span>
   </v-toolbar-title>
   <v-spacer></v-spacer>
-  {{$bybitApi.currentSymbol}} |&nbsp
+  <v-btn-toggle
+      v-model="symbolIndex"
+      mandatory
+      color="primary"
+  >
+    <v-btn v-for="symbol in $bybitApi.availableSymbols" small mb-3>
+      {{symbol}}
+    </v-btn>
+  </v-btn-toggle>
+  <v-spacer></v-spacer>
   <span v-if="lastPriceDecreasing" class="error--text">Last : {{$bybitApi.lastPrice}} </span>
   <span v-else-if="lastPriceIncreasing" class="success--text">Last : {{$bybitApi.lastPrice}} </span>
   <span v-else>Last : {{$bybitApi.lastPrice}} </span>
