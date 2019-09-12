@@ -304,17 +304,23 @@ export default {
             return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
           }).join('&');
         },
+        getDataFromLocalStorage() {
+          if (localStorage.apiKey) {
+            this.apiKey = localStorage.apiKey.trim();
+          }
+          if (localStorage.apiSecret) {
+            this.apiSecret = localStorage.apiSecret.trim();
+          }
+          if (localStorage.currentSymbol) {
+            this.currentSymbol = localStorage.currentSymbol;
+          }
+          if (localStorage.isTestnet !== undefined) {
+            this.isTestnet = localStorage.isTestnet === 'true';
+          }
+        },
       },
       created() {
-        if (localStorage.apiKey) {
-          this.apiKey = localStorage.apiKey.trim();
-        }
-        if (localStorage.apiSecret) {
-          this.apiSecret = localStorage.apiSecret.trim();
-        }
-        if (localStorage.isTestnet !== undefined) {
-          this.isTestnet = localStorage.isTestnet === 'true';
-        }
+        this.getDataFromLocalStorage();
         this.init();
       },
       watch: {
@@ -329,6 +335,9 @@ export default {
         isTestnet(isTestnet) {
           this.isTestnet = isTestnet;
           localStorage.isTestnet = isTestnet;
+        },
+        currentSymbol(currentSymbol) {
+          localStorage.currentSymbol = currentSymbol;
         },
       },
     });
