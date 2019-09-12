@@ -10,40 +10,11 @@ export default {
     valid: true,
     form: {
       higherPrice: '',
-      higherPriceRules: [
-        v => !!v || 'Higher Price is required',
-        v => !isNaN(v) || 'Higher Price must be an number',
-        v => !Number.isInteger(v) || 'Higher Price must be an integer',
-      ],
       lowerPrice: '',
-      lowerPriceRules: [
-        v => !!v || 'Lower Price is required',
-        v => !isNaN(v) || 'Lower Price must be an number',
-        v => !Number.isInteger(v) || 'Lower Price must be an integer',
-      ],
       takeProfit: '',
-      takeProfitRules: [
-        v => !isNaN(v) || 'Take Profit must be an number',
-        v => !Number.isInteger(v) || 'Take Profit must be an integer',
-      ],
       stopLoss: '',
-      stopLossRules: [
-        v => !isNaN(v) || 'Stop Loss must be an number',
-        v => !Number.isInteger(v) || 'Stop Loss must be an integer',
-      ],
       contracts: '',
-      contractsRules: [
-        v => !!v || 'Quantity is required',
-        v => !isNaN(v) || 'Quantity must be an number',
-        v => !Number.isInteger(v) || 'Quantity must be an integer',
-      ],
       orders: '',
-      ordersRules: [
-        v => !!v || 'Number of orders is required',
-        v => !isNaN(v) || 'Number of orders must be an number',
-        v => !Number.isInteger(v) || 'Number of orders must be an integer',
-        v => v >= 2 || 'Number of orders must be above 2',
-      ],
       scale: ORDER_DISTRIBUTIONS.INCREASING.label,
       scaleItems: [
         ORDER_DISTRIBUTIONS.FLAT.label,
@@ -51,11 +22,6 @@ export default {
         ORDER_DISTRIBUTIONS.DECREASING.label,
       ],
       coefficient: '10',
-      coefficientRules: [
-        v => !isNaN(v) || 'Coefficient must be an number',
-        v => !Number.isInteger(v) || 'Coefficient must be an integer',
-        v => parseInt(v) >= 1 || 'Coefficient must be greater than 1',
-      ],
       postOnly: true,
       reduceOnly: false,
     },
@@ -63,6 +29,57 @@ export default {
     orders: [],
   }),
   
+  computed: {
+    formValidation: function() {
+      return {
+        higherPriceRules: [
+          v => !!v || 'Higher Price is required',
+          v => v && !isNaN(v) || 'Higher Price must be an number',
+          v => v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Higher Price must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        lowerPriceRules: [
+          v => !!v || 'Lower Price is required',
+          v => v && !isNaN(v) || 'Lower Price must be an number',
+          v => v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Lower Price must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        takeProfitRules: [
+          v => !v || v && !isNaN(v) || 'Take Profit must be an number',
+          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Take Profit must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        stopLossRules: [
+          v => !v || v && !isNaN(v) || 'Stop Loss must be an number',
+          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Stop Loss must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        contractsRules: [
+          v => !!v || 'Quantity is required',
+          v => v && !isNaN(v) || 'Quantity must be an number',
+          v => v && (parseFloat(v) % this.$bybitApi.currentQtyStep === 0) ||
+              'Quantity must be a multiple of ' +
+              this.$bybitApi.currentQtyStep,
+        ],
+        ordersRules: [
+          v => !!v || 'Number of orders is required',
+          v => v && !isNaN(v) || 'Number of orders must be an number',
+          v => v && !Number.isInteger(v) || 'Number of orders must be an integer',
+          v => v && v >= 2 || 'Number of orders must be above 2',
+        ],
+        coefficientRules: [
+          v => !!v || 'Coefficient is required',
+          v => v && !isNaN(v) || 'Coefficient must be an number',
+          v => v && !Number.isInteger(v) || 'Coefficient must be an integer',
+          v => v && parseInt(v) >= 1 || 'Coefficient must be greater than 1',
+        ],
+      };
+    },
+  },
   methods: {
     previewSell() {
       if (this.$refs.form.validate()) {
@@ -107,12 +124,12 @@ export default {
             (this.form.scale === ORDER_DISTRIBUTIONS.INCREASING.label
                 ? ORDER_DISTRIBUTIONS.DECREASING.label
                 : ORDER_DISTRIBUTIONS.INCREASING.label)),
-        tickSize: 1,
-        coefficient : parseInt(this.form.coefficient)
+        tickSize: this.$bybitApi.currentTickSize,
+        coefficient: parseInt(this.form.coefficient),
       });
       if (side === 'Buy') {
         for (let i = orders.length - 1; i >= 0; i--) {
-          let order  = {
+          let order = {
             side: side,
             symbol: this.$bybitApi.currentSymbol,
             order_type: 'Limit',
@@ -120,12 +137,12 @@ export default {
             price: orders[i].price,
             time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
             reduce_only: this.form.reduceOnly,
-          } ;
-          if(this.form.takeProfit && i === orders.length - 1) {
-            order.take_profit = this.form.takeProfit ;
+          };
+          if (this.form.takeProfit && i === orders.length - 1) {
+            order.take_profit = this.form.takeProfit;
           }
-          if(this.form.stopLoss  && i === orders.length - 1) {
-            order.stop_loss = this.form.stopLoss ;
+          if (this.form.stopLoss && i === orders.length - 1) {
+            order.stop_loss = this.form.stopLoss;
           }
           this.orders.push(order);
         }
@@ -139,12 +156,12 @@ export default {
             price: orders[i].price,
             time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
             reduce_only: this.form.reduceOnly,
-          } ;
-          if(this.form.takeProfit && i === 0) {
-            order.take_profit = this.form.takeProfit ;
+          };
+          if (this.form.takeProfit && i === 0) {
+            order.take_profit = this.form.takeProfit;
           }
-          if(this.form.stopLoss  && i === 0) {
-            order.stop_loss = this.form.stopLoss ;
+          if (this.form.stopLoss && i === 0) {
+            order.stop_loss = this.form.stopLoss;
           }
           this.orders.push(order);
         }
@@ -160,7 +177,6 @@ export default {
       this.preview = [];
     },
   },
-  computed: {},
   mounted() {
   
   },

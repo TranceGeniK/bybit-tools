@@ -8,41 +8,41 @@
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.higherPrice"
-        :rules="form.higherPriceRules"
+        :rules="formValidation.higherPriceRules"
         label="Higher Price"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.lowerPrice"
-        :rules="form.lowerPriceRules"
+        :rules="formValidation.lowerPriceRules"
         label="Lower Price"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.contracts"
-        :rules="form.contractsRules"
+        :rules="formValidation.contractsRules"
         label="Quantity"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.orders"
-        :rules="form.ordersRules"
+        :rules="formValidation.ordersRules"
         label="Number of orders"
         required
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.takeProfit"
-        :rules="form.takeProfitRules"
+        :rules="formValidation.takeProfitRules"
         label="Take Profit"
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.stopLoss"
-        :rules="form.stopLossRules"
+        :rules="formValidation.stopLossRules"
         label="Stop Loss"
     ></v-text-field>
     <v-select class="ma-0"
@@ -56,7 +56,7 @@
     <v-text-field class="ma-0"
                   height="25"
         v-model="form.coefficient"
-        :rules="form.coefficientRules"
+        :rules="formValidation.coefficientRules"
         label="Scale Coefficient (Higher is stronger)"
     ></v-text-field>
     <v-layout row wrap justify-space-around class="ma-0 pa-0" style="height: 44px">

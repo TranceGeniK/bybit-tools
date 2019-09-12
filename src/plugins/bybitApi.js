@@ -16,6 +16,8 @@ export default {
         openOrders: [],
         openPosition: null,
         currentSymbol: 'BTCUSD',
+        currentTickSize: 0.5,
+        currentQtyStep: 1,
         urls: {
           mainnet: {
             url: 'https://api.bybit.com/',
@@ -39,8 +41,20 @@ export default {
               this.wsUrl = this.urls.mainnet.wsUrl;
             }
             this.initWs();
+            this.updateInstrumentDetails();
             this.getOrders();
             this.initPositionInterval();
+          }
+        },
+        async updateInstrumentDetails() {
+          let res = await axios.get(this.url + 'v2/public/symbols');
+          if (res.data.ret_msg === 'OK') {
+            let symbolInfos = res.data.result.find(
+                el => el.name === this.currentSymbol);
+            this.currentTickSize = parseFloat(
+                symbolInfos.price_filter.tick_size);
+            this.currentQtyStep = parseFloat(
+                symbolInfos.lot_size_filter.qty_step);
           }
         },
         initWs() {
@@ -76,7 +90,7 @@ export default {
                 break;
               case 'order' :
                 for (let i = 0; i < data.data.length; i++) {
-                  if(data.data[i].symbol === this.currentSymbol) {
+                  if (data.data[i].symbol === this.currentSymbol) {
                     if (data.data[i].order_status === 'Cancelled'
                         || data.data[i].order_status === 'Rejected'
                         || data.data[i].order_status === 'Filled') {

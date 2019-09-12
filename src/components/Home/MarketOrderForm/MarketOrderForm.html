@@ -8,7 +8,7 @@
     <v-text-field class="ma-0"
                   height="25"
                   v-model="form.contracts"
-                  :rules="form.contractsRules"
+                  :rules="formValidation.contractsRules"
                   label="Quantity"
                   required
     ></v-text-field>
@@ -18,7 +18,7 @@
                   :hint="tpProfit"
                   persistent-hint
                   v-model="form.takeProfit"
-                  :rules="form.takeProfitRules"
+                  :rules="formValidation.takeProfitRules"
                   label="Take Profit"
     ></v-text-field>
     <br>
@@ -27,7 +27,7 @@
                   :hint="slLoss"
                   persistent-hint
                   v-model="form.stopLoss"
-                  :rules="form.stopLossRules"
+                  :rules="formValidation.stopLossRules"
                   label="Stop Loss"
     ></v-text-field>
     <v-layout wrap align-center>

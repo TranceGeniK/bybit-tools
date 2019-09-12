@@ -6,32 +6,44 @@ export default {
     valid: true,
     form: {
       price: '',
-      priceRules: [
-        v => !!v || 'Price is required',
-        v => !isNaN(v) || 'Price must be an number',
-        v => !Number.isInteger(v) || 'Price must be an integer',
-      ],
       takeProfit: '',
-      takeProfitRules: [
-        v => !isNaN(v) || 'Take Profit must be an number',
-        v => !Number.isInteger(v) || 'Take Profit must be an integer',
-      ],
       stopLoss: '',
-      stopLossRules: [
-        v => !isNaN(v) || 'Stop Loss must be an number',
-        v => !Number.isInteger(v) || 'Stop Loss must be an integer',
-      ],
       contracts: '',
-      contractsRules: [
-        v => !!v || 'Quantity is required',
-        v => !isNaN(v) || 'Quantity must be an number',
-        v => !Number.isInteger(v) || 'Quantity must be an integer',
-      ],
       postOnly: true,
       reduceOnly: false,
     },
   }),
   computed: {
+    formValidation: function() {
+      return {
+        priceRules: [
+          v => !!v || 'Price is required',
+          v => v && !isNaN(v) || 'Price must be an number',
+          v => v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Price must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        takeProfitRules: [
+          v => !v || v && !isNaN(v) || 'Take Profit must be an number',
+          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Take Profit must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        stopLossRules: [
+          v => !v || v && !isNaN(v) || 'Stop Loss must be an number',
+          v => !v || v && (parseFloat(v) % this.$bybitApi.currentTickSize === 0) ||
+              'Stop Loss must be a multiple of ' +
+              this.$bybitApi.currentTickSize,
+        ],
+        contractsRules: [
+          v => !!v || 'Quantity is required',
+          v => v && !isNaN(v) || 'Quantity must be an number',
+          v => v && (parseFloat(v) % this.$bybitApi.currentQtyStep === 0) ||
+              'Quantity must be a multiple of ' +
+              this.$bybitApi.currentQtyStep,
+        ],
+      };
+    },
     tpProfit: function() {
       if (this.form.price && this.form.takeProfit && this.form.contracts) {
         let profit = Math.abs(
