@@ -34,20 +34,20 @@ export default {
   computed: {
     tpProfit: function() {
       if (this.form.price && this.form.takeProfit && this.form.contracts) {
-        let btcProfit = Math.abs(
+        let profit = Math.abs(
             (1 / this.form.price) - (1 / parseFloat(this.form.takeProfit))) *
             this.form.contracts;
-        return btcProfit.toFixed(4) + ' ≈ ' +
-            (btcProfit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+        return profit.toFixed(4) + ' ≈ ' +
+            (profit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
       }
     },
     slLoss: function() {
       if (this.form.price && this.form.stopLoss && this.form.contracts) {
-        let btcLoss = Math.abs(
+        let loss = Math.abs(
             (1 / this.form.price) - (1 / parseFloat(this.form.stopLoss))) *
             this.form.contracts;
-        return btcLoss.toFixed(4) + ' ≈ ' +
-            (btcLoss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+        return loss.toFixed(4) + ' ≈ ' +
+            (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
       }
     },
   },
@@ -68,7 +68,7 @@ export default {
     getOrder(side) {
       let order = {
         side: side,
-        symbol: 'BTCUSD',
+        symbol: this.$bybitApi.currentSymbol,
         order_type: 'Limit',
         qty: this.form.contracts,
         price: this.form.price,

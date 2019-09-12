@@ -4,8 +4,10 @@ export default {
   props: [],
   data() {
     return {
-      increasing: false,
-      decreasing: false,
+      lastPriceIncreasing: false,
+      lastPriceDecreasing: false,
+      markPriceIncreasing: false,
+      markPriceDecreasing: false,
     };
   },
   computed: {},
@@ -16,11 +18,20 @@ export default {
   watch: {
     '$bybitApi.lastPrice': function(newPrice, oldPrice) {
       if (newPrice > oldPrice) {
-        this.increasing = true;
-        this.decreasing = false;
+        this.lastPriceIncreasing = true;
+        this.lastPriceDecreasing = false;
       } else {
-        this.increasing = false;
-        this.decreasing = true;
+        this.lastPriceIncreasing = false;
+        this.lastPriceDecreasing = true;
+      }
+    },
+    '$bybitApi.markPrice': function(newPrice, oldPrice) {
+      if (newPrice > oldPrice) {
+        this.markPriceIncreasing = true;
+        this.markPriceDecreasing = false;
+      } else {
+        this.markPriceIncreasing = false;
+        this.markPriceDecreasing = true;
       }
     },
   },

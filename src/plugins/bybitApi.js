@@ -12,6 +12,7 @@ export default {
         wsUrl: 'wss://stream.bybit.com/realtime',
         ws: {},
         lastPrice: 0,
+        markPrice: 0,
         openOrders: [],
         openPosition: null,
         currentSymbol: 'BTCUSD',
@@ -63,25 +64,28 @@ export default {
               // this.ws.send('{"op":"subscribe","args":["position"]}');
             }, 500);
             this.ws.send(
-                '{"op":"subscribe","args":["instrument_info.100ms.BTCUSD"]}');
+                '{"op":"subscribe","args":["instrument_info.100ms.' +
+                this.currentSymbol + '"]}');
           };
           
           this.ws.onmessage = (e) => {
             let data = JSON.parse(e.data);
             switch (data.topic) {
-              case 'instrument_info.100ms.BTCUSD' :
+              case 'instrument_info.100ms.' + this.currentSymbol + '' :
                 this.setPrice(data);
                 break;
               case 'order' :
                 for (let i = 0; i < data.data.length; i++) {
-                  if (data.data[i].order_status === 'Cancelled'
-                      || data.data[i].order_status === 'Rejected'
-                      || data.data[i].order_status === 'Filled') {
-                    this.removeOrder(data.data[i]);
-                  }
-                  if (data.data[i].order_status === 'New'
-                      || data.data[i].order_status === 'PartiallyFilled') {
-                    this.addOrder(data.data[i]);
+                  if(data.data[i].symbol === this.currentSymbol) {
+                    if (data.data[i].order_status === 'Cancelled'
+                        || data.data[i].order_status === 'Rejected'
+                        || data.data[i].order_status === 'Filled') {
+                      this.removeOrder(data.data[i]);
+                    }
+                    if (data.data[i].order_status === 'New'
+                        || data.data[i].order_status === 'PartiallyFilled') {
+                      this.addOrder(data.data[i]);
+                    }
                   }
                 }
                 break;
@@ -94,11 +98,16 @@ export default {
         setPrice(data) {
           if (data.type === 'snapshot') {
             this.lastPrice = Number(data.data.last_price_e4 + 'e-4').toFixed(2);
+            this.markPrice = Number(data.data.mark_price_e4 + 'e-4').toFixed(2);
           }
           if (data.type === 'delta') {
             if (data.data.update[0].last_price_e4) {
               this.lastPrice = Number(
                   data.data.update[0].last_price_e4 + 'e-4').toFixed(2);
+            }
+            if (data.data.update[0].mark_price_e4) {
+              this.markPrice = Number(
+                  data.data.update[0].mark_price_e4 + 'e-4').toFixed(2);
             }
           }
         },
@@ -106,7 +115,7 @@ export default {
           try {
             let data = {
               'order_status': 'New',
-              'symbol': 'BTCUSD',
+              'symbol': this.currentSymbol,
               'page': page,
             };
             let options = {

@@ -26,14 +26,14 @@ export default {
   computed: {
     tpProfit: function() {
       if(this.form.takeProfit && this.form.contracts) {
-        let btcProfit = Math.abs((1 / this.$bybitApi.lastPrice) - (1 / parseFloat(this.form.takeProfit))) * this.form.contracts ;
-        return btcProfit.toFixed(4) + ' ≈ ' + (btcProfit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+        let profit = Math.abs((1 / this.$bybitApi.lastPrice) - (1 / parseFloat(this.form.takeProfit))) * this.form.contracts ;
+        return profit.toFixed(4) + ' ≈ ' + (profit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
       }
     },
     slLoss: function() {
       if(this.form.stopLoss && this.form.contracts) {
-        let btcLoss = Math.abs((1 / this.$bybitApi.lastPrice) - (1 / parseFloat(this.form.stopLoss))) * this.form.contracts;
-        return btcLoss.toFixed(4) + ' ≈ ' + (btcLoss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+        let loss = Math.abs((1 / this.$bybitApi.lastPrice) - (1 / parseFloat(this.form.stopLoss))) * this.form.contracts;
+        return loss.toFixed(4) + ' ≈ ' + (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
       }
     }
   },
@@ -54,7 +54,7 @@ export default {
     getOrder(side) {
       let order = {
         side: side,
-        symbol: 'BTCUSD',
+        symbol: this.$bybitApi.currentSymbol,
         order_type: 'Market',
         qty: this.form.contracts,
         time_in_force: 'GoodTillCancel'

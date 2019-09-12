@@ -114,7 +114,7 @@ export default {
         for (let i = orders.length - 1; i >= 0; i--) {
           let order  = {
             side: side,
-            symbol: 'BTCUSD',
+            symbol: this.$bybitApi.currentSymbol,
             order_type: 'Limit',
             qty: orders[i].amount,
             price: orders[i].price,
@@ -133,7 +133,7 @@ export default {
         for (let i = 0; i < orders.length; i++) {
           let order = {
             side: side,
-            symbol: 'BTCUSD',
+            symbol: this.$bybitApi.currentSymbol,
             order_type: 'Limit',
             qty: orders[i].amount,
             price: orders[i].price,
