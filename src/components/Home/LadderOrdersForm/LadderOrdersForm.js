@@ -123,8 +123,8 @@ export default {
       let orders = generateOrders({
         amount: this.form.contracts,
         orderCount: this.form.orders,
-        priceLower: parseInt(this.form.lowerPrice),
-        priceUpper: parseInt(this.form.higherPrice),
+        priceLower: parseFloat(this.form.lowerPrice),
+        priceUpper: parseFloat(this.form.higherPrice),
         distribution: side === 'Sell' ? this.form.scale : (this.form.scale ===
         ORDER_DISTRIBUTIONS.FLAT.label ? ORDER_DISTRIBUTIONS.FLAT.label :
             (this.form.scale === ORDER_DISTRIBUTIONS.INCREASING.label
