@@ -23,6 +23,8 @@ npm install
 npm run electron:build
 ```
 
+##### If you like this app and it's useful to you, please consider supporting my work
+
 BTC Tip line : 1C24gX5aCBn4qdoUVKkmkj9dWGmKeMzV8L
 
 ETH Tip line : 0x1d1fe0de85fe11fea34782cb2883b272fa10c57a
