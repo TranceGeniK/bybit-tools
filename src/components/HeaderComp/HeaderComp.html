@@ -15,12 +15,12 @@
     </v-btn>
   </v-btn-toggle>
   <v-spacer></v-spacer>
-  <span v-if="lastPriceDecreasing" class="error--text">Last : {{$bybitApi.lastPrice}} </span>
-  <span v-else-if="lastPriceIncreasing" class="success--text">Last : {{$bybitApi.lastPrice}} </span>
-  <span v-else>Last : {{$bybitApi.lastPrice}} </span>
+  <span v-if="lastPriceDecreasing" class="error--text">Last : <strong>{{$bybitApi.lastPrice}}</strong> </span>
+  <span v-else-if="lastPriceIncreasing" class="success--text">Last : <strong>{{$bybitApi.lastPrice}}</strong> </span>
+  <span v-else>Last : <strong>{{$bybitApi.lastPrice}}</strong> </span>
   &nbsp|&nbsp
-  <span v-if="markPriceDecreasing" class="error--text">Mark : {{$bybitApi.markPrice}}</span>
-  <span v-else-if="markPriceIncreasing" class="success--text">Mark : {{$bybitApi.markPrice}}</span>
-  <span v-else>Mark : {{$bybitApi.markPrice}}</span>
+  <span v-if="markPriceDecreasing" class="error--text">Mark : <strong>{{$bybitApi.markPrice}}</strong></span>
+  <span v-else-if="markPriceIncreasing" class="success--text">Mark : <strong>{{$bybitApi.markPrice}}</strong></span>
+  <span v-else>Mark : <strong>{{$bybitApi.markPrice}}</strong></span>
 </v-app-bar>
 
