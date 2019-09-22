@@ -15,17 +15,36 @@ export default {
         {text: 'Time In Force', value: 'time_in_force'},
         // {text: 'Reduce Only', value: 'reduce_only'},
       ],
+      totalQty : 0
     };
   },
   computed: {
     average: function() {
       let totalAll = 0;
-      let totalQty = 0;
+      this.totalQty = 0;
       for (let i = 0; i < this.orders.length; i++) {
         totalAll += this.orders[i].qty * this.orders[i].price;
-        totalQty += this.orders[i].qty;
+        this.totalQty += this.orders[i].qty;
       }
-      return (totalAll / totalQty).toFixed(2);
+      return (totalAll / this.totalQty).toFixed(2);
+    },
+    tpProfit: function() {
+      if (this.average && this.orders[0].take_profit && this.totalQty) {
+        let profit = Math.abs(
+            (1 / this.average) - (1 / parseFloat(this.orders[0].take_profit))) *
+            this.totalQty;
+        return profit.toFixed(4) + ' ≈ ' +
+            (profit * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+      }
+    },
+    slLoss: function() {
+      if (this.average && this.orders[0].stop_loss && this.totalQty) {
+        let loss = Math.abs(
+            (1 / this.average) - (1 / parseFloat(this.orders[0].stop_loss))) *
+            this.totalQty + (((this.totalQty * 0.075) / 100) / this.orders[0].stop_loss);
+        return loss.toFixed(4) + ' ≈ ' +
+            (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD (including fees)';
+      }
     },
   },
   mounted() {

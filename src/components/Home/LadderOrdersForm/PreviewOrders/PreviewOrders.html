@@ -8,7 +8,7 @@
   <v-data-table
       :headers="headers"
       :items="orders"
-      :items-per-page="10"
+      :items-per-page="6"
       dense
   >
     <template v-slot:item.reduce_only="{ item }">
@@ -16,5 +16,7 @@
     </template>
   </v-data-table>
   Average : {{average}}
+  <template v-if="slLoss"><br>Stop loss : {{slLoss}}</template>
+  <template v-if="tpProfit"><br>Target profit : {{tpProfit}}</template>
 </section>
 

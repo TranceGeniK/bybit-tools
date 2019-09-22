@@ -45,9 +45,9 @@ export default {
     slLoss: function() {
       if (this.form.stopLoss && this.form.contracts) {
         let loss = Math.abs((1 / this.$bybitApi.lastPrice) -
-            (1 / parseFloat(this.form.stopLoss))) * this.form.contracts;
+            (1 / parseFloat(this.form.stopLoss))) * this.form.contracts  + (((this.form.contracts * 0.075) / 100) / this.form.stopLoss);
         return loss.toFixed(4) + ' ≈ ' +
-            (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD';
+            (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD (including fees)';
       }
     },
   },
