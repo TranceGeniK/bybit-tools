@@ -7,6 +7,7 @@ export default {
       data: {
         apiKey: '',
         apiSecret: '',
+        autoconnect: true,
         isTestnet: false,
         url: 'https://api.bybit.com/',
         wsUrl: 'wss://stream.bybit.com/realtime',
@@ -33,7 +34,7 @@ export default {
       },
       methods: {
         init() {
-          if (this.apiKey && this.apiSecret) {
+          if (this.apiKey && this.apiSecret && this.autoconnect) {
             if (this.isTestnet) {
               this.url = this.urls.testnet.url;
               this.wsUrl = this.urls.testnet.wsUrl;
@@ -331,6 +332,9 @@ export default {
           if (localStorage.isTestnet !== undefined) {
             this.isTestnet = localStorage.isTestnet === 'true';
           }
+          if (localStorage.autoconnect !== undefined) {
+            this.autoconnect = localStorage.autoconnect === 'true';
+          }
         },
       },
       created() {
@@ -338,6 +342,9 @@ export default {
         this.init();
       },
       watch: {
+        autoconnect(autoconnect) {
+          localStorage.autoconnect = autoconnect;
+        },
         apiKey(apiKey) {
           this.apiKey = apiKey.trim();
           localStorage.apiKey = apiKey.trim();
