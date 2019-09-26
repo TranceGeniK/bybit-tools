@@ -3,6 +3,7 @@ import LimitOrderForm from './LimitOrderForm';
 import MarketOrderForm from './MarketOrderForm';
 import OpenOrdersList from './OpenOrdersList';
 import OpenPosition from './OpenPosition';
+import RiskManagementPane from './RiskManagementPane';
 
 export default {
   name: 'home',
@@ -12,12 +13,14 @@ export default {
     MarketOrderForm,
     OpenOrdersList,
     OpenPosition,
+    RiskManagementPane
   },
   props: [],
   data() {
     return {
       orderTypeId: 0,
       expandTv: false,
+      order: {}
     };
   },
   computed: {
@@ -38,4 +41,9 @@ export default {
   
   },
   methods: {},
+  watch: {
+    orderTypeId: function() {
+      this.order = {} ;
+    }
+  }
 };

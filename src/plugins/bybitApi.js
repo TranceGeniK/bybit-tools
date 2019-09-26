@@ -14,6 +14,7 @@ export default {
         ws: {},
         lastPrice: 0,
         markPrice: 0,
+        walletBalance: 0,
         openOrders: [],
         openPosition: null,
         availableSymbols: ['BTCUSD', 'ETHUSD'],
@@ -52,6 +53,7 @@ export default {
           this.ws.close();
           this.lastPrice = 0;
           this.markPrice = 0;
+          this.walletBalance = 0;
           this.openOrders = [];
           this.openPosition = null;
           this.currentSymbol = symbol;
@@ -186,6 +188,9 @@ export default {
                 options);
             if (res.data.ret_msg === 'ok') {
               // console.log(res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)) ;
+              // console.log(res.data) ;
+              this.walletBalance = res.data.result.filter(
+                  pos => pos.symbol === this.currentSymbol)[0].wallet_balance;
               this.openPosition = res.data.result.filter(
                   pos => pos.symbol === this.currentSymbol && pos.size > 0)[0];
             } else {

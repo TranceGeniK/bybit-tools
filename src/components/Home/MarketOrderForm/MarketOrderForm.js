@@ -15,20 +15,23 @@ export default {
       return {
         takeProfitRules: [
           v => !v || v && !isNaN(v) || 'Take Profit must be an number',
-          v => !v || v && (Number(v + 'e4') % Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
+          v => !v || v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Take Profit must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         stopLossRules: [
           v => !v || v && !isNaN(v) || 'Stop Loss must be an number',
-          v => !v || v && (Number(v + 'e4') % Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
+          v => !v || v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentTickSize + 'e4') === 0) ||
               'Stop Loss must be a multiple of ' +
               this.$bybitApi.currentTickSize,
         ],
         contractsRules: [
           v => !!v || 'Quantity is required',
           v => v && !isNaN(v) || 'Quantity must be an number',
-          v => v && (Number(v + 'e4') % Number(this.$bybitApi.currentQtyStep + 'e4') === 0) ||
+          v => v && (Number(v + 'e4') %
+              Number(this.$bybitApi.currentQtyStep + 'e4') === 0) ||
               'Quantity must be a multiple of ' +
               this.$bybitApi.currentQtyStep,
         ],
@@ -45,9 +48,11 @@ export default {
     slLoss: function() {
       if (this.form.stopLoss && this.form.contracts) {
         let loss = Math.abs((1 / this.$bybitApi.lastPrice) -
-            (1 / parseFloat(this.form.stopLoss))) * this.form.contracts  + (((this.form.contracts * 0.075) / 100) / this.form.stopLoss);
+            (1 / parseFloat(this.form.stopLoss))) * this.form.contracts +
+            (((this.form.contracts * 0.075) / 100) / this.form.stopLoss);
         return loss.toFixed(4) + ' ≈ ' +
-            (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD (including fees)';
+            (loss * this.$bybitApi.lastPrice).toFixed(2) +
+            'USD (including fees)';
       }
     },
   },
@@ -83,6 +88,43 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler: async function() {
+        if (this.form.contracts
+            && this.form.stopLoss
+            && this.form.takeProfit) {
+          await this.$nextTick();
+          if (this.$refs.form.validate()) {
+            this.$emit('order', {
+              price: this.$bybitApi.lastPrice,
+              qty: this.form.contracts,
+              stopLoss: this.form.stopLoss,
+              takeProfit: this.form.takeProfit,
+              orderType: 'market',
+            });
+          }
+        }
+      },
+    },
+    '$bybitApi.lastPrice': async function() {
+      if (this.form.contracts
+          && this.form.stopLoss
+          && this.form.takeProfit) {
+        await this.$nextTick();
+        if (this.$refs.form.validate()) {
+          this.$emit('order', {
+            price: this.$bybitApi.lastPrice,
+            qty: this.form.contracts,
+            stopLoss: this.form.stopLoss,
+            takeProfit: this.form.takeProfit,
+            orderType: 'market',
+          });
+        }
+      }
     },
   },
 };

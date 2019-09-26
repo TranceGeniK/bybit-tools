@@ -1,0 +1,18 @@
+<section class="risk-management-pane">
+  <h3 class="font-weight-light">Risk Management</h3>
+  <v-text-field
+      v-model="risk"
+      suffix="%"
+      label="Risk percentage"
+  ></v-text-field>
+  <v-simple-table v-if="Object.keys(order).length > 0">
+    <template v-slot:default>
+      <tbody>
+      <tr v-for="item in table" :key="item.label">
+        <td>{{ item.value }}</td>
+        <td>{{ item.label }}</td>
+      </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+</section>

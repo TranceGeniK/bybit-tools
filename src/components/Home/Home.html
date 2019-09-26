@@ -6,10 +6,10 @@
         column
     >
       <open-position v-if="$bybitApi.openPosition && $ui.showOpenPosition"></open-position>
-      <v-row justify="space-between">
+      <v-row justify="space-between" cols="12">
         <v-col v-if="$ui.showTvChart"
                cols="12"
-               :xl="expandTv ? '12' : '8'"
+               :xl="expandTv ? 12 : $ui.showRiskManagementPane ? 6 : 9"
                lg="12"
                md="12"
                sm="12"
@@ -23,9 +23,9 @@
         </v-col>
         <v-col
             cols="12"
-            :xl="$ui.showTvChart && !expandTv ? 4 : 12"
-            lg="12"
-            md="12"
+            :xl="$ui.showTvChart && !expandTv ? 3 : $ui.showRiskManagementPane ? 6 : 12"
+            :lg="$ui.showRiskManagementPane ? 6 : 12"
+            :md="$ui.showRiskManagementPane ? 6 : 12"
             sm="12"
             xs="12"
         >
@@ -45,9 +45,19 @@
             </v-btn>
           </v-btn-toggle>
           
-          <ladder-orders-form v-show="orderTypeId === 0"></ladder-orders-form>
-          <limit-order-form v-show="orderTypeId === 1"></limit-order-form>
-          <market-order-form v-show="orderTypeId === 2"></market-order-form>
+          <ladder-orders-form v-show="orderTypeId === 0" @order="order = $event"></ladder-orders-form>
+          <limit-order-form v-show="orderTypeId === 1" @order="order = $event"></limit-order-form>
+          <market-order-form v-show="orderTypeId === 2" @order="order = $event"></market-order-form>
+        </v-col>
+        <v-col v-if="$ui.showRiskManagementPane"
+               cols="12"
+               :xl="$ui.showTvChart && !expandTv ? 3 : 6"
+               lg="6"
+               md="6"
+               sm="12"
+               xs="12"
+        >
+          <risk-management-pane :order="order" :key="orderTypeId"></risk-management-pane>
         </v-col>
       </v-row>
       <open-orders-list></open-orders-list>

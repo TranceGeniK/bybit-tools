@@ -27,6 +27,7 @@ export default {
     },
     preview: [],
     orders: [],
+    liveOrders: [],
   }),
   
   computed: {
@@ -119,8 +120,17 @@ export default {
         this.placeOrders();
       }
     },
-    calculateOrders(side) {
-      let orders = generateOrders({
+    average: function() {
+      let totalAll = 0;
+      this.totalQty = 0;
+      for (let i = 0; i < this.liveOrders.length; i++) {
+        totalAll += this.liveOrders[i].amount * this.liveOrders[i].price;
+        this.totalQty += this.liveOrders[i].amount;
+      }
+      return (totalAll / this.totalQty);
+    },
+    generateOrders(side) {
+      return generateOrders({
         amount: this.form.contracts,
         orderCount: this.form.orders,
         priceLower: parseFloat(this.form.lowerPrice),
@@ -133,6 +143,9 @@ export default {
         tickSize: this.$bybitApi.currentTickSize,
         coefficient: parseInt(this.form.coefficient),
       });
+    },
+    calculateOrders(side) {
+      let orders = this.generateOrders(side);
       if (side === 'Buy') {
         for (let i = orders.length - 1; i >= 0; i--) {
           let order = {
@@ -185,5 +198,36 @@ export default {
   },
   mounted() {
   
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler: async function() {
+        if (this.form.higherPrice
+            && this.form.lowerPrice
+            && this.form.orders
+            && this.form.contracts
+            && this.form.stopLoss
+            && this.form.takeProfit) {
+          await this.$nextTick();
+          if (this.$refs.form.validate()) {
+            let orders = [];
+            if (this.form.takeProfit > this.form.higherPrice) {
+              orders = this.generateOrders('Buy');
+            } else if (this.form.takeProfit < this.form.lowerPrice) {
+              orders = this.generateOrders('Sell');
+            }
+            this.liveOrders = orders;
+            this.$emit('order', {
+              price: this.average(),
+              qty: this.form.contracts,
+              stopLoss: this.form.stopLoss,
+              takeProfit: this.form.takeProfit,
+              orderType: 'limit',
+            });
+          }
+        }
+      },
+    },
   },
 };

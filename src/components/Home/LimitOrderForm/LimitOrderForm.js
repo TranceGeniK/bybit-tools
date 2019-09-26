@@ -61,9 +61,11 @@ export default {
       if (this.form.price && this.form.stopLoss && this.form.contracts) {
         let loss = Math.abs(
             (1 / this.form.price) - (1 / parseFloat(this.form.stopLoss))) *
-            this.form.contracts + (((this.form.contracts * 0.075) / 100) / this.form.stopLoss);
+            this.form.contracts +
+            (((this.form.contracts * 0.075) / 100) / this.form.stopLoss);
         return loss.toFixed(4) + ' ≈ ' +
-            (loss * this.$bybitApi.lastPrice).toFixed(2) + 'USD (including fees)';
+            (loss * this.$bybitApi.lastPrice).toFixed(2) +
+            'USD (including fees)';
       }
     },
   },
@@ -100,6 +102,28 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler: async function() {
+        if (this.form.contracts
+            && this.form.price
+            && this.form.stopLoss
+            && this.form.takeProfit) {
+          await this.$nextTick();
+          if (this.$refs.form.validate()) {
+            this.$emit('order', {
+              price: this.form.price,
+              qty: this.form.contracts,
+              stopLoss: this.form.stopLoss,
+              takeProfit: this.form.takeProfit,
+              orderType: 'limit',
+            });
+          }
+        }
+      },
     },
   },
 };

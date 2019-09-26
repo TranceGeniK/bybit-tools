@@ -3,6 +3,7 @@ export default {
     Vue.prototype.$ui = new Vue({
       data: {
         showTvChart: false,
+        showRiskManagementPane: false,
         showOpenPosition: true,
         chartsIds: {
           "BTCUSD" : '',
@@ -16,6 +17,9 @@ export default {
         if (localStorage.showTvChart !== undefined) {
           this.showTvChart = localStorage.showTvChart === 'true';
         }
+        if (localStorage.showRiskManagementPane !== undefined) {
+          this.showRiskManagementPane = localStorage.showRiskManagementPane === 'true';
+        }
         if (localStorage.showOpenPosition !== undefined) {
           this.showOpenPosition = localStorage.showOpenPosition === 'true';
         }
@@ -26,6 +30,9 @@ export default {
       watch: {
         showTvChart(showTvChart) {
           localStorage.showTvChart = showTvChart;
+        },
+        showRiskManagementPane(showRiskManagementPane) {
+          localStorage.showRiskManagementPane = showRiskManagementPane;
         },
         chartsIds: {
           deep: true,
