@@ -29,21 +29,24 @@
             sm="12"
             xs="12"
         >
-          <v-btn-toggle
-              v-model="orderTypeId"
-              mandatory
-              color="primary"
-          >
-            <v-btn small mb-3>
-              Ladder
-            </v-btn>
-            <v-btn small mb-3>
-              Limit
-            </v-btn>
-            <v-btn small mb-3>
-              Market
-            </v-btn>
-          </v-btn-toggle>
+          <div class="row justify-center">
+            <v-btn-toggle
+                v-model="orderTypeId"
+                mandatory
+                color="primary"
+            >
+              <v-btn small mb-3>
+                Ladder
+              </v-btn>
+              <v-btn small mb-3>
+                Limit
+              </v-btn>
+              <v-btn small mb-3>
+                Market
+              </v-btn>
+            </v-btn-toggle>
+            <v-switch v-model="$ui.showRiskManagementPane" class="risk ma-2 mt-0" color="primary" label="Risk Pane"></v-switch>
+          </div>
           
           <ladder-orders-form v-if="orderTypeId === 0" @order="order = $event"></ladder-orders-form>
           <limit-order-form v-if="orderTypeId === 1" @order="order = $event"></limit-order-form>
