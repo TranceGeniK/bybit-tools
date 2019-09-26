@@ -24,7 +24,8 @@ export default {
         },
         {
           label: 'Leverage needed',
-          value: Math.max((this.contractsToTrade / this.walletBalanceUSD), 1).toFixed(2),
+          value: Math.max((this.contractsToTrade / this.walletBalanceUSD), 1).
+              toFixed(2),
         },
         {
           label: 'Distance Entry - Stop Loss',
@@ -117,10 +118,18 @@ export default {
   },
   mounted() {
     // console.log(this.order);
+    if (localStorage.risk) {
+      this.risk = localStorage.risk;
+    }
   },
   methods: {
     percent(value) {
       return value / 100;
+    },
+  },
+  watch: {
+    risk(risk) {
+      localStorage.risk = risk;
     },
   },
 };
