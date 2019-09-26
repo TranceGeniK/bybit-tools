@@ -108,15 +108,13 @@ export default {
     form: {
       deep: true,
       handler: async function() {
-        if (this.form.contracts
-            && this.form.price
+        if (this.form.price
             && this.form.stopLoss
             && this.form.takeProfit) {
           await this.$nextTick();
           if (this.$refs.form.validate()) {
             this.$emit('order', {
               price: this.form.price,
-              qty: this.form.contracts,
               stopLoss: this.form.stopLoss,
               takeProfit: this.form.takeProfit,
               orderType: 'limit',

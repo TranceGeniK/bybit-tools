@@ -206,7 +206,6 @@ export default {
         if (this.form.higherPrice
             && this.form.lowerPrice
             && this.form.orders
-            && this.form.contracts
             && this.form.stopLoss
             && this.form.takeProfit) {
           await this.$nextTick();
@@ -220,7 +219,6 @@ export default {
             this.liveOrders = orders;
             this.$emit('order', {
               price: this.average(),
-              qty: this.form.contracts,
               stopLoss: this.form.stopLoss,
               takeProfit: this.form.takeProfit,
               orderType: 'limit',

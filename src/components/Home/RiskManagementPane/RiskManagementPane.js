@@ -15,6 +15,10 @@ export default {
           value: this.walletBalanceUSD,
         },
         {
+          label: 'Entry Price',
+          value: this.order.price,
+        },
+        {
           label: 'Contracts to trade',
           value: this.contractsToTrade,
         },

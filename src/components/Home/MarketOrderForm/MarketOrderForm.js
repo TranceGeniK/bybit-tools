@@ -94,14 +94,12 @@ export default {
     form: {
       deep: true,
       handler: async function() {
-        if (this.form.contracts
-            && this.form.stopLoss
+        if (this.form.stopLoss
             && this.form.takeProfit) {
           await this.$nextTick();
           if (this.$refs.form.validate()) {
             this.$emit('order', {
               price: this.$bybitApi.lastPrice,
-              qty: this.form.contracts,
               stopLoss: this.form.stopLoss,
               takeProfit: this.form.takeProfit,
               orderType: 'market',
@@ -111,14 +109,12 @@ export default {
       },
     },
     '$bybitApi.lastPrice': async function() {
-      if (this.form.contracts
-          && this.form.stopLoss
+      if (this.form.stopLoss
           && this.form.takeProfit) {
         await this.$nextTick();
         if (this.$refs.form.validate()) {
           this.$emit('order', {
             price: this.$bybitApi.lastPrice,
-            qty: this.form.contracts,
             stopLoss: this.form.stopLoss,
             takeProfit: this.form.takeProfit,
             orderType: 'market',
