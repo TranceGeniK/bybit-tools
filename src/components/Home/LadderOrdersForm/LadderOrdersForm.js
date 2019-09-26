@@ -5,7 +5,7 @@ import {generateOrders} from './scaledOrderGenerator';
 export default {
   name: 'ladder-orders-form',
   components: {PreviewOrders},
-  props: [],
+  props: ['active'],
   data: () => ({
     valid: true,
     form: {
@@ -203,7 +203,8 @@ export default {
     form: {
       deep: true,
       handler: async function() {
-        if (this.form.higherPrice
+        if (this.active
+            && this.form.higherPrice
             && this.form.lowerPrice
             && this.form.orders
             && this.form.stopLoss

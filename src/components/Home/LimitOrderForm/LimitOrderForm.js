@@ -1,7 +1,7 @@
 export default {
   name: 'limit-order-form',
   components: {},
-  props: [],
+  props: ['active'],
   data: () => ({
     valid: true,
     form: {
@@ -108,7 +108,8 @@ export default {
     form: {
       deep: true,
       handler: async function() {
-        if (this.form.price
+        if (this.active
+            && this.form.price
             && this.form.stopLoss
             && this.form.takeProfit) {
           await this.$nextTick();

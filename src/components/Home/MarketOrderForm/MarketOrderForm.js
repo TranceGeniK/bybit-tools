@@ -1,7 +1,7 @@
 export default {
   name: 'market-order-form',
   components: {},
-  props: [],
+  props: ['active'],
   data: () => ({
     valid: true,
     form: {
@@ -94,7 +94,8 @@ export default {
     form: {
       deep: true,
       handler: async function() {
-        if (this.form.stopLoss
+        if (this.active
+            && this.form.stopLoss
             && this.form.takeProfit) {
           await this.$nextTick();
           if (this.$refs.form.validate()) {
@@ -109,7 +110,8 @@ export default {
       },
     },
     '$bybitApi.lastPrice': async function() {
-      if (this.form.stopLoss
+      if (this.active
+          && this.form.stopLoss
           && this.form.takeProfit) {
         await this.$nextTick();
         if (this.$refs.form.validate()) {
