@@ -51,15 +51,15 @@
           
           <ladder-orders-form v-show="orderTypeId === 0"
                               @order="order = $event"
-                              :key="$bybitApi.currentSymbol"
+                              :key="$bybitApi.currentSymbol + 0"
                               :active="orderTypeId === 0"></ladder-orders-form>
           <limit-order-form v-show="orderTypeId === 1"
                             @order="order = $event"
-                            :key="$bybitApi.currentSymbol"
+                            :key="$bybitApi.currentSymbol + 1"
                             :active="orderTypeId === 1"></limit-order-form>
           <market-order-form v-show="orderTypeId === 2"
                              @order="order = $event"
-                             :key="$bybitApi.currentSymbol"
+                             :key="$bybitApi.currentSymbol + 2"
                              :active="orderTypeId === 2"></market-order-form>
         </v-col>
         <v-col v-show="$ui.showRiskManagementPane"

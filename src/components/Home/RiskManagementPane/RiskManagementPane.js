@@ -16,7 +16,7 @@ export default {
         },
         {
           label: 'Entry Price',
-          value: this.order.price.toFixed(2),
+          value: Number(this.order.price).toFixed(2),
         },
         {
           label: 'Contracts to trade',
