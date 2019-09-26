@@ -2,11 +2,17 @@
 
 Desktop app to place scaled orders on bybit
 
-Including a webview to *your* tradingview chart, allowing you to use custom indicators
-
 ![Preview](./screenshots/main_screen.png)
 
+##### Features :
 
+ - Including a webview to *your* tradingview chart, allowing you to use custom indicators
+ - Generate scaled orders
+ - Place laddered/limit/market orders
+ - Preview stop loss cost / target profit gains
+ - Bulk cancel orders
+ - Show current open position
+ - Risk management calculator
 
 [Releases](https://github.com/TranceGeniK/bybit-tools/releases)
 
