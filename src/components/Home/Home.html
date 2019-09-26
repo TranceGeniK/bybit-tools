@@ -52,7 +52,7 @@
           <limit-order-form v-if="orderTypeId === 1" @order="order = $event"></limit-order-form>
           <market-order-form v-if="orderTypeId === 2" @order="order = $event"></market-order-form>
         </v-col>
-        <v-col v-if="$ui.showRiskManagementPane"
+        <v-col v-show="$ui.showRiskManagementPane"
                cols="12"
                :xl="$ui.showTvChart && !expandTv ? 3 : 6"
                lg="6"
