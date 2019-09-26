@@ -7,6 +7,8 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib';
 import open from 'open';
 
+const path = require('path');
+
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -20,11 +22,14 @@ protocol.registerSchemesAsPrivileged(
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1366, height: 768, webPreferences: {
+    width: 1366,
+    height: 768,
+    webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
       webSecurity: false,
     },
+    icon: path.join(__static, 'icon.png')
   });
   
   win.webContents.on('new-window', function(event, url) {
