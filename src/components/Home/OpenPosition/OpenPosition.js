@@ -20,6 +20,7 @@ export default {
         {text: 'Stop Loss', value: 'stop_loss'},
         {text: 'Take Profit', value: 'take_profit'},
         {text: 'Trailing Stop', value: 'trailing_stop'},
+        {text: 'Market close', value: 'market_close'},
       ],
     };
   },

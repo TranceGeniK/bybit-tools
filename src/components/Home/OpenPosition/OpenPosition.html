@@ -9,7 +9,7 @@
       <span v-if="item.side === 'Sell'" class="error--text">-{{item.size}}</span>
       <span v-if="item.side === 'Buy'" class="success--text">{{item.size}}</span>
     </template>
-  
+    
     <template v-slot:item.unrealised_pnl_last="{ item }">
       <span v-if="unrealised_pnl_last(item.entry_price, item.size, item.side) < 0" class="error--text">{{unrealised_pnl_last(item.entry_price, item.size, item.side).toFixed(6)}} | ≈{{(unrealised_pnl_last(item.entry_price, item.size, item.side) * $bybitApi.lastPrice).toFixed(2)}} USD ({{(100 * unrealised_pnl_last(item.entry_price, item.size, item.side) / item.position_margin).toFixed(2)}}%)</span>
       <span v-else-if="unrealised_pnl_last(item.entry_price, item.size, item.side) > 0" class="success--text">{{unrealised_pnl_last(item.entry_price, item.size, item.side).toFixed(6)}} | ≈{{(unrealised_pnl_last(item.entry_price, item.size, item.side) * $bybitApi.lastPrice).toFixed(2)}} USD ({{(100 * unrealised_pnl_last(item.entry_price, item.size, item.side) / item.position_margin).toFixed(2)}}%)</span>
@@ -32,6 +32,16 @@
     
     <template v-slot:item.position_value="{ item }">
       {{item.position_value.toFixed(5)}} (≈{{(item.position_value * $bybitApi.lastPrice).toFixed(2)}} USD)
+    </template>
+    
+    <template v-slot:item.market_close="{ item }">
+      <v-btn x-small
+             color="primary"
+             class="mr-4"
+             @click="$bybitApi.marketClosePosition()"
+      >
+        Close
+      </v-btn>
     </template>
   </v-data-table>
 </section>

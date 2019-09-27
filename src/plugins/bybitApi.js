@@ -207,6 +207,15 @@ export default {
             console.error(e);
           }
         },
+        marketClosePosition() {
+          this.placeOrder({
+            side: this.openPosition.side === 'Buy' ? 'Sell' : 'Buy',
+            symbol: this.$bybitApi.currentSymbol,
+            order_type: 'Market',
+            qty: this.openPosition.size,
+            time_in_force: 'GoodTillCancel',
+          });
+        },
         async placeOrder(data) {
           try {
             let res = await axios.post(this.url + 'open-api/order/create',
