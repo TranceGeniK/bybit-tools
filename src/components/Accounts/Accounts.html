@@ -1,0 +1,69 @@
+<section class="accounts">
+  <v-card>
+    <v-card-title class="title">
+     <span>Accounts</span><v-btn small
+                     color="primary"
+                     @click="add()"
+    >
+      +
+    </v-btn>
+    </v-card-title>
+    
+    <v-card-text>
+      <v-data-table
+          :headers="headers"
+          :items="$bybitApi.accounts"
+          :items-per-page="10"
+      >
+        <template v-slot:item.label="{ item }">
+          <v-text-field
+              v-model="item.label"
+              :rules="accountLabelRules"
+              required
+          ></v-text-field>
+        </template>
+        <template v-slot:item.apiKey="{ item }">
+          <v-text-field
+              v-model="item.apiKey"
+              :rules="apiKeyRules"
+              counter="18"
+              required
+          ></v-text-field>
+        </template>
+        <template v-slot:item.apiSecret="{ item }">
+          <v-text-field
+              v-model="item.apiSecret"
+              :rules="privateKeyRules"
+              counter="36"
+              required
+          ></v-text-field>
+        </template>
+        <template v-slot:item.isTestnet="{ item }">
+          <v-switch v-model="item.isTestnet" color="primary"></v-switch>
+        </template>
+        <template v-slot:item.remove="{ item }">
+          <v-btn small
+                 color="error"
+                 @click="remove(item)"
+          >
+            X
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card-text>
+    
+    <v-divider></v-divider>
+    
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+          color="primary"
+          text
+          @click="$emit('close')"
+      >
+        Close
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</section>
+

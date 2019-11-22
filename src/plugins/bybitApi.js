@@ -5,13 +5,18 @@ export default {
   install(Vue, defaultOptions = {}) {
     Vue.prototype.$bybitApi = new Vue({
       data: {
-        apiKey: '',
-        apiSecret: '',
+        account: {
+          apiKey: '',
+          apiSecret: '',
+          label: '',
+          isTestnet: false,
+        },
+        accounts: [],
         autoconnect: true,
-        isTestnet: false,
+        
         url: 'https://api.bybit.com/',
         wsUrl: 'wss://stream.bybit.com/realtime',
-        ws: {},
+        ws: null,
         lastPrice: 0,
         markPrice: 0,
         walletBalance: 0,
@@ -35,8 +40,9 @@ export default {
       },
       methods: {
         init() {
-          if (this.apiKey && this.apiSecret && this.autoconnect) {
-            if (this.isTestnet) {
+          if (this.account.apiKey && this.account.apiSecret &&
+              this.autoconnect) {
+            if (this.account.isTestnet) {
               this.url = this.urls.testnet.url;
               this.wsUrl = this.urls.testnet.wsUrl;
             } else {
@@ -50,13 +56,26 @@ export default {
           }
         },
         changeSymbol(symbol) {
-          this.ws.close();
+          if (this.ws) {
+            this.ws.close();
+          }
           this.lastPrice = 0;
           this.markPrice = 0;
           this.walletBalance = 0;
           this.openOrders = [];
           this.openPosition = null;
           this.currentSymbol = symbol;
+          this.init();
+        },
+        changeAccount() {
+          if (this.ws) {
+            this.ws.close();
+          }
+          this.lastPrice = 0;
+          this.markPrice = 0;
+          this.walletBalance = 0;
+          this.openOrders = [];
+          this.openPosition = null;
           this.init();
         },
         async updateInstrumentDetails() {
@@ -78,13 +97,13 @@ export default {
             let expires = Date.now() + 1500;
             
             let signature = CryptoJS.HmacSHA256('GET/realtime' + expires,
-                this.apiSecret).
+                this.account.apiSecret).
                 toString();
             
             this.ws.send(
                 JSON.stringify({
                   'op': 'auth',
-                  'args': [this.apiKey, expires, signature],
+                  'args': [this.account.apiKey, expires, signature],
                 }));
             
             setTimeout(() => {
@@ -305,11 +324,11 @@ export default {
           }
         },
         signData(data) {
-          data.api_key = this.apiKey;
+          data.api_key = this.account.apiKey;
           data.timestamp = Date.now() - 2000;
           data.recv_window = 25000;
           let dataString = this.objToString(this.sortObject(data));
-          data.sign = CryptoJS.HmacSHA256(dataString, this.apiSecret).
+          data.sign = CryptoJS.HmacSHA256(dataString, this.account.apiSecret).
               toString();
           return this.sortObject(data);
         },
@@ -334,17 +353,14 @@ export default {
           }).join('&');
         },
         getDataFromLocalStorage() {
-          if (localStorage.apiKey) {
-            this.apiKey = localStorage.apiKey.trim();
+          if (localStorage.accounts !== undefined) {
+            this.accounts = JSON.parse(localStorage.accounts);
           }
-          if (localStorage.apiSecret) {
-            this.apiSecret = localStorage.apiSecret.trim();
+          if (localStorage.account) {
+            this.account = JSON.parse(localStorage.account);
           }
           if (localStorage.currentSymbol) {
             this.currentSymbol = localStorage.currentSymbol;
-          }
-          if (localStorage.isTestnet !== undefined) {
-            this.isTestnet = localStorage.isTestnet === 'true';
           }
           if (localStorage.autoconnect !== undefined) {
             this.autoconnect = localStorage.autoconnect === 'true';
@@ -360,19 +376,30 @@ export default {
           localStorage.autoconnect = autoconnect;
         },
         apiKey(apiKey) {
-          this.apiKey = apiKey.trim();
+          this.account.apiKey = apiKey.trim();
           localStorage.apiKey = apiKey.trim();
         },
         apiSecret(apiSecret) {
           this.apiSecret = apiSecret.trim();
           localStorage.apiSecret = apiSecret.trim();
         },
-        isTestnet(isTestnet) {
-          this.isTestnet = isTestnet;
-          localStorage.isTestnet = isTestnet;
-        },
         currentSymbol(currentSymbol) {
           localStorage.currentSymbol = currentSymbol;
+        },
+        account: {
+          deep: true,
+          handler(account) {
+            account.apiSecret = account.apiSecret.trim();
+            account.label = account.label.trim();
+            account.apiKey = account.apiKey.trim();
+            localStorage.account = JSON.stringify(account);
+          },
+        },
+        accounts: {
+          deep: true,
+          handler(accounts) {
+            localStorage.accounts = JSON.stringify(accounts);
+          },
         },
       },
     });

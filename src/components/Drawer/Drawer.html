@@ -7,35 +7,54 @@
   <v-form v-model="valid" :lazy-validation="false">
     <v-container>
       <v-layout wrap>
-        <v-switch v-model="$bybitApi.isTestnet" color="primary" label="Testnet"></v-switch>
-        <v-text-field
-            v-model="$bybitApi.apiKey"
-            :rules="apiKeyRules"
-            label="API Key"
-            counter="18"
-            required
-        ></v-text-field>
-        <v-text-field
-            v-model="$bybitApi.apiSecret"
-            :rules="privateKeyRules"
-            label="Private Key"
-            counter="36"
-            required
-        ></v-text-field>
+        <div class="row justify-center align-center">
+          <v-select
+              class="mr-4"
+              style="max-width: 170px;"
+              :items="$bybitApi.accounts"
+              v-model="$bybitApi.account"
+              item-text="label"
+              item-value="value"
+              label="Account"
+              return-object
+              @change="$bybitApi.changeAccount"
+          ></v-select>
+          <v-dialog
+              v-model="dialog"
+              width="1000"
+          >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                  center
+                  dark
+                  v-on="on"
+                  small
+              >
+                <v-icon>mdi-settings</v-icon>
+              </v-btn>
+            </template>
+            
+            <accounts @close="dialog = false"></accounts>
+          </v-dialog>
+        </div>
+  
+        <div class="row justify-center align-center">
+          <v-switch v-model="$bybitApi.autoconnect"
+                    class="mr-4"
+                    color="primary"
+                    style="max-width: 150px;"
+                    label="Auto-connect at startup"></v-switch>
+          <v-btn
+              color="darkgrey"
+              :disabled="!valid"
+              @click="init"
+              small
+          >
+            Init
+          </v-btn>
+        </div>
         
-        <v-switch v-model="$bybitApi.autoconnect" class="ma-2 mt-4" color="primary"
-                  label="Auto-connect at startup"></v-switch>
-        
-        <v-btn
-            color="darkgrey"
-            class="mr-4"
-            :disabled="!valid"
-            @click="init"
-        >
-          Init
-        </v-btn>
-        
-        <v-switch v-model="$ui.showTvChart" class="ma-2 mt-4" color="primary" label="Show Tradingview Chart"></v-switch>
+        <v-switch v-model="$ui.showTvChart" class="ma-2" color="primary" label="Show Tradingview Chart"></v-switch>
         <v-switch v-model="$ui.showOpenPosition" class="ma-2 mt-0" color="primary"
                   label="Show Open Position"></v-switch>
         
@@ -49,4 +68,3 @@
     </v-container>
   </v-form>
 </v-navigation-drawer>
-

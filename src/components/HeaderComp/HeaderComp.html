@@ -1,8 +1,9 @@
-
 <v-app-bar app>
   <v-app-bar-nav-icon @click.stop="$emit('toggleDrawer')"></v-app-bar-nav-icon>
   <v-toolbar-title class="text-uppercase">
-    <span class="font-weight-light">Bybit Tools</span>
+    <span class="font-weight-light">Bybit Tools<span
+        style="text-transform: none"
+        v-if="$bybitApi.account.label"> | {{$bybitApi.account.label}}</span></span>
   </v-toolbar-title>
   <v-spacer></v-spacer>
   <v-btn-toggle

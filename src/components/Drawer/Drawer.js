@@ -1,25 +1,24 @@
+import Accounts from '../Accounts';
+
 export default {
   name: 'drawer',
-  components: {},
+  components: {Accounts},
   props: ['value'],
   data () {
     return {
-      apiKeyRules: [
-        (v) => !!v || 'Api key is required',
-        (v) => v && v.length === 18 || 'Api key must be 18 characters'
-      ],
-      privateKeyRules: [
-        (v) => !!v || 'Private Key is required',
-        (v) => v && v.length === 36 || 'Private Key must be 36 characters'
-      ],
-      valid: true
+      account: {
+        apiKey: '',
+        apiSecret: '',
+        label: '',
+        isTestnet: false
+      },
+      dialog: false,
     }
   },
   computed: {
-
   },
   mounted () {
-    if(this.$bybitApi.apiKey && this.$bybitApi.apiSecret) {
+    if(this.$bybitApi.account.apiKey && this.$bybitApi.account.apiSecret) {
       this.$emit('input', false) ;
     }
     else {
@@ -27,8 +26,15 @@ export default {
     }
   },
   methods: {
-    init() {
-      this.$bybitApi.init() ;
+    addAccount() {
+      this.$bybitApi.account = this.account ;
+      this.$bybitApi.accounts.push(this.$bybitApi.account) ;
+      if(this.$bybitApi.accounts.length > 1) {
+        this.$bybitApi.changeAccount() ;
+      }
+      else {
+        this.$bybitApi.init() ;
+      }
       this.$emit('input', false) ;
     }
   },
