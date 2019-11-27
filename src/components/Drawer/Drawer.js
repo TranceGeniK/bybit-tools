@@ -13,6 +13,7 @@ export default {
         isTestnet: false
       },
       dialog: false,
+      valid: true,
     }
   },
   computed: {
