@@ -37,7 +37,7 @@ export default {
       };
     },
     tpProfit: function() {
-      if (this.takeProfit && this.$bybitApi.openPosition.size) {
+      if (this.takeProfit && this.takeProfit != 0 && this.$bybitApi.openPosition.size) {
         let profit = Math.abs((1 / this.$bybitApi.openPosition.entry_price) -
             (1 / parseFloat(this.takeProfit))) * this.$bybitApi.openPosition.size;
         return profit.toFixed(4) + ' ≈ ' +
@@ -45,7 +45,7 @@ export default {
       }
     },
     slLoss: function() {
-      if (this.stopLoss && this.$bybitApi.openPosition.size) {
+      if (this.stopLoss && this.stopLoss != 0 && this.$bybitApi.openPosition.size) {
         let loss = Math.abs((1 / this.$bybitApi.openPosition.entry_price) -
             (1 / parseFloat(this.stopLoss))) * this.$bybitApi.openPosition.size +
             (((this.$bybitApi.openPosition.size * 0.075) / 100) / this.stopLoss);
