@@ -16,10 +16,10 @@
       <span v-else>{{unrealised_pnl_last(item.entry_price, item.size, item.side).toFixed(6)}} | ≈{{(unrealised_pnl_last(item.entry_price, item.size, item.side) * $bybitApi.lastPrice).toFixed(2)}} USD ({{(100 * unrealised_pnl_last(item.entry_price, item.size, item.side) / item.position_margin).toFixed(2)}}%)</span>
     </template>
     
-    <template v-slot:item.unrealised_pnl="{ item }">
-      <span v-if="item.unrealised_pnl < 0" class="error--text">{{item.unrealised_pnl.toFixed(6)}} ({{(100 * item.unrealised_pnl / item.position_margin).toFixed(2)}}%)</span>
-      <span v-else-if="item.unrealised_pnl > 0" class="success--text">{{item.unrealised_pnl.toFixed(6)}} ({{(100 * item.unrealised_pnl / item.position_margin).toFixed(2)}}%)</span>
-      <span v-else>{{item.unrealised_pnl.toFixed(6)}} ({{(100 * item.unrealised_pnl / item.position_margin).toFixed(2)}}%)</span>
+    <template v-slot:item.realised_pnl="{ item }">
+      <span v-if="item.realised_pnl < 0" class="error--text">{{item.realised_pnl.toFixed(6)}} | ≈{{(item.realised_pnl.toFixed(6) * $bybitApi.lastPrice).toFixed(2)}} USD</span>
+      <span v-else-if="item.realised_pnl > 0" class="success--text">{{item.realised_pnl.toFixed(6)}} | ≈{{(item.realised_pnl.toFixed(6) * $bybitApi.lastPrice).toFixed(2)}} USD</span>
+      <span v-else>{{item.realised_pnl.toFixed(6)}} | ≈{{(item.realised_pnl.toFixed(6) * $bybitApi.lastPrice).toFixed(2)}} USD</span>
     </template>
     
     <template v-slot:item.entry_price="{ item }">

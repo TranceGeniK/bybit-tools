@@ -15,11 +15,11 @@ export default {
         {text: 'Liq. Price', value: 'liq_price'},
         {text: 'Margin', value: 'position_margin'},
         {text: 'Leverage', value: 'leverage'},
-        {text: 'Unrealized P&L (Mark Price)', value: 'unrealised_pnl'},
         {
           text: 'Unrealized P&L (Last Traded Price)',
           value: 'unrealised_pnl_last',
         },
+        {text: 'Daily Realized P&L', value: 'realised_pnl'},
         {text: 'Stop Loss', value: 'stop_loss'},
         {text: 'Take Profit', value: 'take_profit'},
         {text: 'Trailing Stop', value: 'trailing_stop'},
