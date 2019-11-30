@@ -1,5 +1,7 @@
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import ReconnectingWebSocket from 'reconnecting-websocket';
+
 
 export default {
   install(Vue, defaultOptions = {}) {
@@ -91,7 +93,7 @@ export default {
           }
         },
         initWs() {
-          this.ws = new WebSocket(`${this.wsUrl}`);
+          this.ws = new ReconnectingWebSocket(`${this.wsUrl}`);
           
           this.ws.onopen = (e) => {
             let expires = Date.now() + 1500;
