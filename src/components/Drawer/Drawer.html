@@ -8,17 +8,6 @@
     <v-container>
       <v-layout wrap>
         <div class="row justify-center align-center">
-          <v-select
-              class="mr-4"
-              style="max-width: 170px;"
-              :items="$bybitApi.accounts"
-              v-model="$bybitApi.account"
-              item-text="label"
-              item-value="value"
-              label="Account"
-              return-object
-              @change="$bybitApi.changeAccount"
-          ></v-select>
           <v-dialog
               v-model="dialog"
               width="1000"
@@ -30,7 +19,7 @@
                   v-on="on"
                   small
               >
-                <v-icon>mdi-settings</v-icon>
+                <v-icon>mdi-settings</v-icon><span class="ml-4">Accounts</span>
               </v-btn>
             </template>
             
