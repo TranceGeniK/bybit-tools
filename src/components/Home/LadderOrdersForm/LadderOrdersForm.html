@@ -5,59 +5,71 @@
       :lazy-validation="false"
       autocomplete="off"
   >
+    <div class="row justify-space-around align-center">
+      <div style="width: 75%;">
+        <v-text-field class="ma-0"
+                      height="25"
+                      v-model="form.higherPrice"
+                      :rules="formValidation.higherPriceRules"
+                      label="Higher Price"
+                      required
+        ></v-text-field>
+        <v-text-field class="ma-0"
+                      height="25"
+                      v-model="form.lowerPrice"
+                      :rules="formValidation.lowerPriceRules"
+                      label="Lower Price"
+                      required
+        ></v-text-field>
+      </div>
+      <v-btn
+          center
+          dark
+          @click="switchHighLow"
+          small
+      >
+        <v-icon>mdi-sync</v-icon>
+      </v-btn>
+    </div>
     <v-text-field class="ma-0"
                   height="25"
-        v-model="form.higherPrice"
-        :rules="formValidation.higherPriceRules"
-        label="Higher Price"
-        required
+                  v-model="form.contracts"
+                  :rules="formValidation.contractsRules"
+                  label="Quantity"
+                  required
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
-        v-model="form.lowerPrice"
-        :rules="formValidation.lowerPriceRules"
-        label="Lower Price"
-        required
+                  v-model="form.orders"
+                  :rules="formValidation.ordersRules"
+                  label="Number of orders"
+                  required
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
-        v-model="form.contracts"
-        :rules="formValidation.contractsRules"
-        label="Quantity"
-        required
+                  v-model="form.takeProfit"
+                  :rules="formValidation.takeProfitRules"
+                  label="Take Profit"
     ></v-text-field>
     <v-text-field class="ma-0"
                   height="25"
-        v-model="form.orders"
-        :rules="formValidation.ordersRules"
-        label="Number of orders"
-        required
-    ></v-text-field>
-    <v-text-field class="ma-0"
-                  height="25"
-        v-model="form.takeProfit"
-        :rules="formValidation.takeProfitRules"
-        label="Take Profit"
-    ></v-text-field>
-    <v-text-field class="ma-0"
-                  height="25"
-        v-model="form.stopLoss"
-        :rules="formValidation.stopLossRules"
-        label="Stop Loss"
+                  v-model="form.stopLoss"
+                  :rules="formValidation.stopLossRules"
+                  label="Stop Loss"
     ></v-text-field>
     <v-select class="ma-0"
               height="25"
-        v-model="form.scale"
-        :items="form.scaleItems"
-        :rules="[v => !!v || 'Scale is required']"
-        label="Scale"
-        required
+              v-model="form.scale"
+              :items="form.scaleItems"
+              :rules="[v => !!v || 'Scale is required']"
+              label="Scale"
+              required
     ></v-select>
     <v-text-field class="ma-0"
                   height="25"
-        v-model="form.coefficient"
-        :rules="formValidation.coefficientRules"
-        label="Scale Coefficient (Higher is stronger)"
+                  v-model="form.coefficient"
+                  :rules="formValidation.coefficientRules"
+                  label="Scale Coefficient (Higher is stronger)"
     ></v-text-field>
     <v-layout row wrap justify-space-around class="ma-0 pa-0" style="height: 44px">
       <v-switch v-model="form.postOnly" class="ma-0" color="primary" label="Post-only"></v-switch>

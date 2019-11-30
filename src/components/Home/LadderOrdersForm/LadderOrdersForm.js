@@ -88,6 +88,11 @@ export default {
     },
   },
   methods: {
+    switchHighLow() {
+      let temp = this.form.higherPrice ;
+      this.form.higherPrice = this.form.lowerPrice ;
+      this.form.lowerPrice = temp ;
+    },
     previewSell() {
       if (this.$refs.form.validate()) {
         this.orders = [];
