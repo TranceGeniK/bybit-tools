@@ -34,6 +34,26 @@
       {{item.position_value.toFixed(5)}} (≈{{(item.position_value * $bybitApi.lastPrice).toFixed(2)}} USD)
     </template>
     
+    <template v-slot:item.trading_stops="{ item }">
+      <v-dialog
+          v-model="dialog"
+          width="300"
+      >
+        <template v-slot:activator="{ on }">
+          <v-btn
+              center
+              v-on="on"
+              x-small
+              color="primary"
+          >
+            <v-icon small>mdi-shield-edit-outline</v-icon>
+          </v-btn>
+        </template>
+    
+        <trading-stops v-if="dialog" @close="dialog = false"></trading-stops>
+      </v-dialog>
+    </template>
+    
     <template v-slot:item.market_close="{ item }">
       <v-btn x-small
              color="primary"

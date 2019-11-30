@@ -1,0 +1,69 @@
+<section class="accounts">
+  <v-card>
+    <v-card-title class="title">
+      <span>Trading Stops</span>
+    </v-card-title>
+    
+    <v-card-text>
+      0 means cancel
+      <br><br>
+      <v-form
+          ref="form"
+          v-model="valid"
+          :lazy-validation="false"
+          autocomplete="off"
+          @submit="submit"
+      >
+        <v-text-field class="ma-0"
+                      height="25"
+                      :hint="tpProfit"
+                      persistent-hint
+                      v-model="takeProfit"
+                      :rules="formValidation.takeProfitRules"
+                      label="Take Profit"
+        ></v-text-field>
+        <br>
+        <v-text-field class="ma-0"
+                      height="25"
+                      :hint="slLoss"
+                      persistent-hint
+                      v-model="stopLoss"
+                      :rules="formValidation.stopLossRules"
+                      label="Stop Loss"
+        ></v-text-field>
+        <br>
+        <v-text-field class="ma-0"
+                      height="25"
+                      persistent-hint
+                      v-model="trailingStop"
+                      :rules="formValidation.trailingStopRules"
+                      label="Stop Loss"
+        ></v-text-field>
+        <v-layout class="row justify-center align-center"center>
+          <v-btn
+              :disabled="!valid"
+              color="success"
+              class="ma-2"
+              type="submit"
+          >
+            Submit
+          </v-btn>
+        </v-layout>
+      </v-form>
+    </v-card-text>
+    
+    <v-divider></v-divider>
+    
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+          color="primary"
+          text
+          @click="$emit('close')"
+      >
+        Close
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</section>
+

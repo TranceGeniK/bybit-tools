@@ -1,9 +1,12 @@
+import TradingStops from './TradingStops';
+
 export default {
   name: 'open-position',
-  components: {},
+  components: {TradingStops},
   props: [],
   data() {
     return {
+      dialog: false,
       headers: [
         {text: 'Open Position', value: 'symbol'},
         {text: 'Qty', value: 'size'},
@@ -20,6 +23,7 @@ export default {
         {text: 'Stop Loss', value: 'stop_loss'},
         {text: 'Take Profit', value: 'take_profit'},
         {text: 'Trailing Stop', value: 'trailing_stop'},
+        {text: 'Trading stops', value: 'trading_stops'},
         {text: 'Market close', value: 'market_close'},
       ],
     };

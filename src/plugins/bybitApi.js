@@ -237,6 +237,37 @@ export default {
             time_in_force: 'GoodTillCancel',
           });
         },
+        async setTradingStops(takeProfit, stopLoss, trailingStop) {
+          let data = {
+            symbol: this.currentSymbol,
+            take_profit: takeProfit,
+            stop_loss: stopLoss,
+            trailing_stop: trailingStop
+          } ;
+          try {
+            let res = await axios.post(this.url + 'open-api/position/trading-stop',
+                this.signData(data));
+            console.log(res);
+            if (res.data.ret_msg === 'ok') {
+              this.$notify({
+                text: 'Trading stops changed',
+                type: 'success',
+              });
+            } else {
+              this.$notify({
+                text: res.data.ret_msg,
+                type: 'error',
+              });
+            }
+    
+          } catch (e) {
+            console.error(e);
+            this.$notify({
+              text: e,
+              type: 'error',
+            });
+          }
+        },
         async placeOrder(data) {
           try {
             let res = await axios.post(this.url + 'open-api/order/create',
