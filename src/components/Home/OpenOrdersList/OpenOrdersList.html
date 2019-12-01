@@ -1,6 +1,6 @@
 <section class="open-orders-list">
   <v-layout align-center justify-space-between row ml-2 mr-2 mb-2>
-    <span class="font-weight-light">Open Orders ( {{$bybitApi.openOrders.filter(order => order.side === 'Buy').length}} Long / {{$bybitApi.openOrders.filter(order => order.side === 'Sell').length}} Short )</span>
+    <span class="font-weight-light">Open Orders ( {{sum($bybitApi.openOrders.filter(order => order.side === 'Buy'), 'qty')}} Long / {{sum($bybitApi.openOrders.filter(order => order.side === 'Sell'), 'qty')}} Short )</span>
     <div>
       <v-btn small
              :disabled="$bybitApi.openOrders.length === 0"

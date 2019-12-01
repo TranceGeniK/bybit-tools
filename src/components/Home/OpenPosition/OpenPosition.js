@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     dailyTotal(item) {
-      console.log(this.unrealised_pnl_last(item.entry_price, item.size, item.side) + item.realised_pnl ) ;
       return this.unrealised_pnl_last(item.entry_price, item.size, item.side) + item.realised_pnl ;
     },
     unrealised_pnl_last(price, qty, side) {
