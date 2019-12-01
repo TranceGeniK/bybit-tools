@@ -23,9 +23,9 @@
     </template>
     
     <template v-slot:item.daily_total="{ item }">
-      <span v-if="dailyTotal(item) < 0" class="error--text">{{dailyTotal(item).toFixed(6)}} | ≈${{(dailyTotal(item).toFixed(6) * $bybitApi.lastPrice).toFixed(2)}}</span>
-      <span v-else-if="dailyTotal(item) > 0" class="success--text">{{dailyTotal(item).toFixed(6)}} | ≈${{(dailyTotal(item).toFixed(6) * $bybitApi.lastPrice).toFixed(2)}}</span>
-      <span v-else>{{dailyTotal(item).toFixed(6)}} | ≈${{(dailyTotal(item).toFixed(6) * $bybitApi.lastPrice).toFixed(2)}}</span>
+      <span v-if="dailyTotal(item) < 0" class="error--text">{{dailyTotal(item).toFixed(6)}} | ≈${{(dailyTotal(item).toFixed(6) * $bybitApi.lastPrice).toFixed(2)}} ({{(100 * dailyTotal(item) / $bybitApi.walletBalance).toFixed(2)}}%)</span>
+      <span v-else-if="dailyTotal(item) > 0" class="success--text">{{dailyTotal(item).toFixed(6)}} | ≈${{(dailyTotal(item).toFixed(6) * $bybitApi.lastPrice).toFixed(2)}} ({{(100 * dailyTotal(item) / $bybitApi.walletBalance).toFixed(2)}}%)</span>
+      <span v-else>{{dailyTotal(item).toFixed(6)}} | ≈${{(dailyTotal(item).toFixed(6) * $bybitApi.lastPrice).toFixed(2)}} ({{(100 * dailyTotal(item) / $bybitApi.walletBalance).toFixed(2)}}%)</span>
     </template>
     
     <template v-slot:item.entry_price="{ item }">
@@ -55,7 +55,7 @@
             <v-icon small>mdi-shield-edit-outline</v-icon>
           </v-btn>
         </template>
-    
+        
         <trading-stops v-if="dialog" @close="dialog = false"></trading-stops>
       </v-dialog>
     </template>
