@@ -20,10 +20,11 @@ export default {
           value: 'unrealised_pnl_last',
         },
         {text: 'Daily Realized P&L', value: 'realised_pnl'},
+        {text: 'Daily Total', value: 'daily_total'},
         {text: 'Stop Loss', value: 'stop_loss'},
         {text: 'Take Profit', value: 'take_profit'},
         {text: 'Trailing Stop', value: 'trailing_stop'},
-        {text: 'Trading stops', value: 'trading_stops'},
+        {text: 'Stops', value: 'trading_stops'},
         {text: 'Market close', value: 'market_close'},
       ],
     };
@@ -33,6 +34,10 @@ export default {
   
   },
   methods: {
+    dailyTotal(item) {
+      console.log(this.unrealised_pnl_last(item.entry_price, item.size, item.side) + item.realised_pnl ) ;
+      return this.unrealised_pnl_last(item.entry_price, item.size, item.side) + item.realised_pnl ;
+    },
     unrealised_pnl_last(price, qty, side) {
       if (side === 'Buy') {
         return ((1 / price) - (1 / parseFloat(this.$bybitApi.lastPrice))) * qty;
