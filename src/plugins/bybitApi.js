@@ -2,7 +2,6 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
-
 export default {
   install(Vue, defaultOptions = {}) {
     Vue.prototype.$bybitApi = new Vue({
@@ -242,10 +241,11 @@ export default {
             symbol: this.currentSymbol,
             take_profit: takeProfit,
             stop_loss: stopLoss,
-            trailing_stop: trailingStop
-          } ;
+            trailing_stop: trailingStop,
+          };
           try {
-            let res = await axios.post(this.url + 'open-api/position/trading-stop',
+            let res = await axios.post(
+                this.url + 'open-api/position/trading-stop',
                 this.signData(data));
             console.log(res);
             if (res.data.ret_msg === 'ok') {
@@ -259,7 +259,7 @@ export default {
                 type: 'error',
               });
             }
-    
+            
           } catch (e) {
             console.error(e);
             this.$notify({
@@ -270,10 +270,10 @@ export default {
         },
         async placeOrder(data) {
           try {
-            let res = await axios.post(this.url + 'open-api/order/create',
+            let res = await axios.post(this.url + 'v2/private/order/create',
                 this.signData(data));
             console.log(res);
-            if (res.data.ret_msg === 'ok') {
+            if (res.data.ret_msg === 'OK') {
               this.$notify({
                 text: 'Order placed',
                 type: 'success',
@@ -297,10 +297,11 @@ export default {
           try {
             let data = {
               order_id: id,
+              symbol: this.currentSymbol,
             };
-            let res = await axios.post(this.url + 'open-api/order/cancel',
+            let res = await axios.post(this.url + 'v2/private/order/cancel',
                 this.signData(data));
-            if (res.data.ret_msg === 'ok') {
+            if (res.data.ret_msg === 'OK') {
               this.$notify({
                 text: 'Order cancelled',
                 type: 'success',
@@ -316,8 +317,25 @@ export default {
           }
         },
         async cancelAllOpenOrders() {
-          for (let i = 0; i < this.openOrders.length; i++) {
-            this.cancelOrder(this.openOrders[i].order_id);
+          try {
+            let data = {
+              symbol: this.currentSymbol,
+            };
+            let res = await axios.post(this.url + 'v2/private/order/cancelAll',
+                this.signData(data));
+            if (res.data.ret_msg === 'OK') {
+              this.$notify({
+                text: 'Orders cancelled',
+                type: 'success',
+              });
+            } else {
+              this.$notify({
+                text: res.data.ret_msg,
+                type: 'error',
+              });
+            }
+          } catch (e) {
+            console.error(e);
           }
         },
         async cancelAllBuyOpenOrders() {

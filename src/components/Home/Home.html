@@ -33,19 +33,20 @@
             <v-btn-toggle
                 v-model="orderTypeId"
                 mandatory
+                class="mb-2"
                 color="primary"
             >
-              <v-btn small mb-3>
+              <v-btn small>
                 Ladder
               </v-btn>
-              <v-btn small mb-3>
+              <v-btn small>
                 Limit
               </v-btn>
-              <v-btn small mb-3>
+              <v-btn small>
                 Market
               </v-btn>
             </v-btn-toggle>
-            <v-switch v-model="$ui.showRiskManagementPane" class="risk ma-2 mt-0" color="primary"
+            <v-switch v-model="$ui.showRiskManagementPane" dense hide-details class="risk ma-2 mt-0" color="primary"
                       label="Risk Pane"></v-switch>
           </div>
           

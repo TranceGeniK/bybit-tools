@@ -44,5 +44,12 @@
   ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
   }
-  
+
+  @media (min-width: 960px) {
+    .container {
+      max-width: 100%;
+    }
+  }
+
+
 </style>
