@@ -24,7 +24,7 @@ Bybit API key parameters :
 <img src="screenshots/bybit_key_parameters.png" width="300">
 
 ##### Troubleshooting :
-If you're getting `invalid request, please check your timestamp and recv_window param` error, [resync your system clock](https://www.google.com/search?q=resync+system+clock&oq=resync+system+clock)
+If you're getting `invalid request, please check your timestamp and recv_window param` error, [resync your system clock](https://www.google.com/search?q=sync+system+clock&oq=sync+system+clock)
 
 ##### Build instructions :
 ```
