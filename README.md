@@ -18,6 +18,8 @@ Desktop app to place scaled orders on bybit
 
 [Overview and quick how-to by Crypto Ranger](https://www.youtube.com/watch?v=it4fIeX-Gc0)
 
+[Guide en français par Archer](https://www.youtube.com/watch?v=Bl6Q7FZ6iAk&feature=youtu.be)
+
 
 Bybit API key parameters : 
 
