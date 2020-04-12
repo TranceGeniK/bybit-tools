@@ -21,8 +21,26 @@ export default {
         ORDER_DISTRIBUTIONS.INCREASING.label,
         ORDER_DISTRIBUTIONS.DECREASING.label,
       ],
+      timeInForceItems: [
+        {
+          value: 'GoodTillCancel',
+          text: 'Good Till Cancel',
+        },
+        {
+          value: 'ImmediateOrCancel',
+          text: 'Immediate Or Cancel',
+        },
+        {
+          value: 'FillOrKill',
+          text: 'Fill Or Kill',
+        },
+        {
+          value: 'PostOnly',
+          text: 'Post Only',
+        },
+      ],
+      time_in_force: 'PostOnly',
       coefficient: '10',
-      postOnly: true,
       reduceOnly: false,
     },
     preview: [],
@@ -89,9 +107,9 @@ export default {
   },
   methods: {
     switchHighLow() {
-      let temp = this.form.higherPrice ;
-      this.form.higherPrice = this.form.lowerPrice ;
-      this.form.lowerPrice = temp ;
+      let temp = this.form.higherPrice;
+      this.form.higherPrice = this.form.lowerPrice;
+      this.form.lowerPrice = temp;
     },
     previewSell() {
       if (this.$refs.form.validate()) {
@@ -159,7 +177,7 @@ export default {
             order_type: 'Limit',
             qty: orders[i].amount,
             price: orders[i].price,
-            time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
+            time_in_force: this.form.time_in_force,
             reduce_only: this.form.reduceOnly,
           };
           if (this.form.takeProfit && i === orders.length - 1) {
@@ -178,7 +196,7 @@ export default {
             order_type: 'Limit',
             qty: orders[i].amount,
             price: orders[i].price,
-            time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
+            time_in_force: this.form.time_in_force,
             reduce_only: this.form.reduceOnly,
           };
           if (this.form.takeProfit && i === 0) {

@@ -38,8 +38,17 @@
                   :rules="formValidation.stopLossRules"
                   label="Stop Loss"
     ></v-text-field>
+    <v-select class="ma-0"
+              height="25"
+              v-model="form.time_in_force"
+              :items="form.timeInForceItems"
+              item-text="text"
+              item-value="value"
+              :rules="[v => !!v || 'Time In Force is required']"
+              label="Time In Force"
+              required
+    ></v-select>
     <v-layout row wrap justify-space-around class="ma-0 pa-0" style="height: 44px">
-      <v-switch ma-2 v-model="form.postOnly" class="ma-0" color="primary" label="Post-only"></v-switch>
       <v-switch ma-2 v-model="form.reduceOnly" class="ma-0" color="primary" label="Reduce-only"></v-switch>
     </v-layout>
     <v-layout wrap align-center>

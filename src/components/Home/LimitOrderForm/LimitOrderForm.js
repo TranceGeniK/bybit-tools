@@ -9,7 +9,25 @@ export default {
       takeProfit: '',
       stopLoss: '',
       contracts: '',
-      postOnly: true,
+      timeInForceItems: [
+        {
+          value: 'GoodTillCancel',
+          text: 'Good Till Cancel',
+        },
+        {
+          value: 'ImmediateOrCancel',
+          text: 'Immediate Or Cancel',
+        },
+        {
+          value: 'FillOrKill',
+          text: 'Fill Or Kill',
+        },
+        {
+          value: 'PostOnly',
+          text: 'Post Only',
+        },
+      ],
+      time_in_force: 'PostOnly',
       reduceOnly: false,
     },
   }),
@@ -89,7 +107,7 @@ export default {
         order_type: 'Limit',
         qty: this.form.contracts,
         price: this.form.price,
-        time_in_force: this.form.postOnly ? 'PostOnly' : 'GoodTillCancel',
+        time_in_force: this.form.time_in_force,
         reduce_only: this.form.reduceOnly,
       };
       if (this.form.takeProfit) {
