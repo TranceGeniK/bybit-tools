@@ -38,5 +38,5 @@ npm run electron:build
 
 BTC Tip line : 1NkgAB4JmbTp7NFkWPVnpZiWJkgoxUkpks
 
-ETH Tip line : 0x1d1fe0de85fe11fea34782cb2883b272fa10c57a
+ETH Tip line : 0xedde349177388e3d979223ab6f0d9848ba4b08d8
 
