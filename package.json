@@ -20,7 +20,7 @@
     "axios": "^0.19.2",
     "crypto-js": "^3.3.0",
     "decimal.js": "^10.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "open": "^6.4.0",
     "reconnecting-websocket": "^4.4.0",
     "vue": "^2.6.11",
