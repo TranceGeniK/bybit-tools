@@ -1,6 +1,6 @@
 # bybit-tools
 
-Bybit-tools is not maintained anymore and is now included as (Bybit Pro)[https://marketspy.net/bybit-pro-tool/] in the MarketSpy Trading Suite
+Bybit-tools is not maintained anymore and is now included as  [Bybit Pro](https://marketspy.net/bybit-pro-tool/) in the MarketSpy Trading Suite
 
 Desktop app to place scaled orders on bybit
 
