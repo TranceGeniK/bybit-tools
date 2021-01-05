@@ -17,7 +17,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "crypto-js": "^3.3.0",
     "decimal.js": "^10.2.0",
     "lodash": "^4.17.19",
