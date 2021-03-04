@@ -1,6 +1,7 @@
 # bybit-tools
 
 Bybit-tools is not maintained anymore
+
 Get Bybit Pro [here](https://bybit-pro-tool/)
 
 ![Bybit Pro](./screenshots/bybit-pro.png)
