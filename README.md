@@ -11,7 +11,7 @@ Desktop app to place scaled orders on bybit
 ![Preview](./screenshots/main_screen.png)
 
 ##### Features :
-
+ 
  - Including a webview to *your* tradingview chart, allowing you to use custom indicators
  - Generate scaled orders
  - Place laddered/limit/market orders
