@@ -4,11 +4,11 @@ Bybit-tools is not maintained anymore
 
 Get Bybit Pro [here](https://bybit-pro.com)
 
-![Bybit Pro](./screenshots/bybit-pro.png)
+![Bybit Pro](./screenshots/bybit-pro-screenshot.png)
 
 Desktop app to place scaled orders on bybit
 
-![Preview](./screenshots/bybit-pro-screenshot.png)
+![Preview](./screenshots/main_screen.png)
 
 ##### Features :
 
