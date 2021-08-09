@@ -8,7 +8,7 @@ Get Bybit Pro [here](https://bybit-pro.com)
 
 Desktop app to place scaled orders on bybit
 
-![Preview](./screenshots/main_screen.png)
+![Preview](./screenshots/bybit-pro-screenshot.png)
 
 ##### Features :
 
