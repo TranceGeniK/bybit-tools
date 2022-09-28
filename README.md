@@ -2,7 +2,7 @@
 
 Bybit-tools is not maintained anymore
 
-Get Bybit Pro [here](https://bybit-pro.com)
+Get Bybit Pro for free [here](https://bybit-pro.com)
 
 ![Bybit Pro](./screenshots/bybit-pro-screenshot.png)
 
