@@ -28,7 +28,7 @@
     "vuetify": "^2.2.21"
   },
   "devDependencies": {
-    "@vue/cli-service": "^3.12.1",
+    "@vue/cli-service": "^5.0.8",
     "electron": "^6.1.9",
     "node-sass": "^4.13.1",
     "sass": "^1.26.3",
